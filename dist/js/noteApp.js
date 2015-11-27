@@ -1,2 +1,2 @@
-"use strict";define(function(require,exports,module){function plusReady(){console.log("dddddt"),plus.nativeUI.actionSheet({title:"Plus is ready!",cancel:"取消",buttons:[{title:"1"},{title:"2"}]},function(e){console.log("User pressed: "+e.index)})}window.plus?plusReady():document.addEventListener("plusready",plusReady,!1)});
+"use strict";define(function(require,exports,module){function plusReady(){plus.nativeUI.actionSheet({title:"Plus is ready!",cancel:"取消",buttons:[{title:"1"},{title:"2"}]},function(e){console.log("User pressed: "+e.index)})}window.plus?plusReady():document.addEventListener("plusready",plusReady,!1)});
 //# sourceMappingURL=noteApp.js.map

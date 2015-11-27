@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 	// H5 plus事件处理ddd
-	function plusReady() {
-		console.log("dddddt");
+	function plusReady() { 
 		// 弹出系统选择按钮框
 		plus.nativeUI.actionSheet({
 			title: "Plus is ready!",
