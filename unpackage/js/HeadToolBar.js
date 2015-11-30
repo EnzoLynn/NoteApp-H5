@@ -10,7 +10,7 @@ define(function (require, exports, module) {
 				"div",
 				null,
 				React.createElement(
-					"head",
+					"div",
 					{ className: "mui-bar mui-bar-nav" },
 					React.createElement("a", { className: "mui-icon mui-icon-bars mui-pull-left" }),
 					React.createElement("a", { className: "mui-icon mui-icon-info-filled mui-pull-right", style: { color: '#999' } }),
