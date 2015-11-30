@@ -3,13 +3,15 @@ var versionStr = version.getFullYear()+''+(version.getMonth()+1)+version.getDate
 seajs.config({
     base: "/",
     paths: {
-        'image': '/image',
-        'css': '/css',
-        'js':'/js'
+        'image': '../image',
+        'css': '../css',
+        'js':'../js'
     },
     alias: {
-        "jquery": "/dist/js/lib/jquery" ,
-        "mui":"/dist/js/lib/mui"
+        "jquery": "./lib/jquery" ,
+        "mui":"./lib/mui",
+        "react":"./lib/react",
+        "react-dom":"./lib/react-dom"
     },
     map: [
         [/^(.*\.(?:css|js))(.*)$/i, '$1?v='+versionStr+'']

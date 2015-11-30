@@ -100,6 +100,14 @@ module.exports = function(grunt) {
                     src: ['**/*.*','!**/*.db'],
                     dest: '../../dist/image'
                 }]
+            },
+            copyfile2: {
+                files: [{
+                    expand: true,
+                    cwd: '../fonts/',
+                    src: ['**/*.*','!**/*.db'],
+                    dest: '../../dist/fonts'
+                }]
             }
         },
         watch: {
@@ -122,6 +130,10 @@ module.exports = function(grunt) {
             copyImage: {
                 files: ['../image/**/*.*'],
                 tasks: ['copy:copyfile1']
+            },
+            copyFonts: {
+                files: ['../fonts/**/*.*'],
+                tasks: ['copy:copyfile2']
             },
             concat: {
                 files: ['<%= jsdest %>**/*.js'],
@@ -151,6 +163,7 @@ module.exports = function(grunt) {
     grunt.registerTask('mylessdist', ['less:mylessdist']);
     grunt.registerTask('cssdist', ['cssmin:cssdist']);
     grunt.registerTask('copyfile', ['copy:copyfile']);
+
 
 
 };
