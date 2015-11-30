@@ -3,6 +3,13 @@
 define(function (require, exports, module) {
 	var $ = require('jquery');
 	var HeadToolBar = require('js/HeadToolBar.js');
+
+	mui.init();
+
+	mui.back = function () {
+		var ws = plus.webview.currentWebview();
+		plus.webview.close(ws);
+	};
 	// H5 plus事件处理ddd
 	function plusReady() {
 
