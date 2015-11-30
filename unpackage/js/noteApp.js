@@ -3,8 +3,23 @@
 define(function (require, exports, module) {
 	var $ = require('jquery');
 	var HeadToolBar = require('js/HeadToolBar.js');
-	var first;
-	mui.init();
+	var height = 0,
+	    first;
+
+	mui.init({
+		subpages: [{
+			url: 'subpage.html', //下拉刷新内容页面地址
+			id: 'subpage', //内容页面标志
+			styles: {
+				top: '48px'
+			}
+		}]
+	});
+
+	mui.plusReady(function () {
+
+		ReactDOM.render(React.createElement(NoteApp, null), mui('.container')[0]);
+	});
 
 	mui.back = function () {
 
@@ -21,30 +36,11 @@ define(function (require, exports, module) {
 			}
 		}
 	};
-	// H5 plus事件处理ddd
-	function plusReady() {
 
-		// 弹出系统选择按钮框
-		plus.nativeUI.actionSheet({
-			title: "Plus is ready!",
-			cancel: "取消",
-			buttons: [{
-				title: "1"
-			}, {
-				title: "2"
-			}]
-		}, function (e) {
-			console.log("User pressed: " + e.index);
-		});
-	}
-	if (window.plus) {
-		plusReady();
-	} else {
-		document.addEventListener("plusready", plusReady, false);
-	}
 	var NoteApp = React.createClass({
 		displayName: 'NoteApp',
 
+		componentDidMount: function componentDidMount() {},
 		render: function render() {
 			return React.createElement(
 				'div',
@@ -52,73 +48,14 @@ define(function (require, exports, module) {
 				React.createElement(HeadToolBar, null),
 				React.createElement(
 					'div',
-					{ 'class': 'mui-content' },
+					{ id: 'pullrefresh', className: 'mui-content  mui-scroll-wrapper' },
 					React.createElement(
-						'ul',
-						{ className: 'mui-table-view' },
-						React.createElement(
-							'li',
-							{ className: 'mui-table-view-cell mui-media' },
-							React.createElement(
-								'a',
-								{ href: 'javascript:;' },
-								React.createElement('img', { className: 'mui-media-object mui-pull-left', src: '../images/shuijiao.jpg' }),
-								React.createElement(
-									'div',
-									{ className: 'mui-media-body' },
-									'幸福',
-									React.createElement(
-										'p',
-										{ className: 'mui-ellipsis' },
-										'能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？'
-									)
-								)
-							)
-						),
-						React.createElement(
-							'li',
-							{ className: 'mui-table-view-cell mui-media' },
-							React.createElement(
-								'a',
-								{ href: 'javascript:;' },
-								React.createElement('img', { className: 'mui-media-object mui-pull-left', src: '../images/muwu.jpg' }),
-								React.createElement(
-									'div',
-									{ className: 'mui-media-body' },
-									'木屋',
-									React.createElement(
-										'p',
-										{ className: 'mui-ellipsis' },
-										'想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.'
-									)
-								)
-							)
-						),
-						React.createElement(
-							'li',
-							{ className: 'mui-table-view-cell mui-media' },
-							React.createElement(
-								'a',
-								{ href: 'javascript:;' },
-								React.createElement('img', { className: 'mui-media-object mui-pull-left', src: '../images/cbd.jpg' }),
-								React.createElement(
-									'div',
-									{ className: 'mui-media-body' },
-									'CBD',
-									React.createElement(
-										'p',
-										{ className: 'mui-ellipsis' },
-										'烤炉模式的城，到黄昏，如同打翻的调色盘一般.'
-									)
-								)
-							)
-						)
+						'div',
+						{ className: 'mui-scroll' },
+						React.createElement('ul', { className: 'mui-table-view mui-table-view-chevron' })
 					)
 				)
 			);
 		}
-	});
-	$(function () {
-		ReactDOM.render(React.createElement(NoteApp, null), $('.container').get(0));
 	});
 });
