@@ -1,15 +1,13 @@
 'use strict';
 
 define(function (require, exports, module) {
-	var $ = require('jquery');
 	var HeadToolBar = require('js/HeadToolBar.js');
-	var height = 0,
-	    first;
+	var first;
 
 	mui.init({
 		subpages: [{
-			url: 'subpage.html', //下拉刷新内容页面地址
-			id: 'subpage', //内容页面标志
+			url: 'listSubPage.html', //下拉刷新内容页面地址
+			id: 'listSubPage', //内容页面标志
 			styles: {
 				top: '48px'
 			}
@@ -17,7 +15,6 @@ define(function (require, exports, module) {
 	});
 
 	mui.plusReady(function () {
-
 		ReactDOM.render(React.createElement(NoteApp, null), mui('.container')[0]);
 	});
 
