@@ -1,18 +1,9 @@
-define(function(require, exports, module) { 
-	var HeadToolBar = require('js/HeadToolBar.js');
+define(function(require, exports, module) {
+	var HeadToolBar = require('js/HeadToolBar.js'); 
 	var first;
 
-	mui.init({
-		subpages: [{
-			url: 'listSubPage.html', //下拉刷新内容页面地址
-			id: 'listSubPage', //内容页面标志
-			styles: {
-				top: '48px'
-			}
-		}]
-	});
 
-	mui.plusReady(function() { 
+	mui.plusReady(function() {
 		ReactDOM.render(
 			<NoteApp />,
 			mui('.container')[0]
@@ -37,19 +28,22 @@ define(function(require, exports, module) {
 
 	let NoteApp = React.createClass({
 		componentDidMount: function() {
+			mui.init({
+				subpages: [{
+					url: 'listSubPage.html', //下拉刷新内容页面地址
+					id: 'listSubPage', //内容页面标志
+					styles: {
+						top: '48px',
+						bottom: '10px',
+					}
+				}]
+			});
 
 		},
 		render: function() {
 			return (
 				<div> 
-					<HeadToolBar />
-					<div id="pullrefresh" className="mui-content  mui-scroll-wrapper" >
-						<div className="mui-scroll"> 
-							<ul className="mui-table-view mui-table-view-chevron">
-								
-							</ul>
-						</div>
-					</div>  
+					<HeadToolBar /> 
 				</div>
 			);
 		}
