@@ -16,8 +16,12 @@
 	    <script src="./dist/js/lib/mui.js"></script>
 	    <link href="./dist/css/mui.css" rel="stylesheet" />
 	    <link href="./dist/css/noteapp.css" rel="stylesheet" />
-	    <script type="text/javascript">		  
-		    seajs.use("./dist/js/listSubPage");
+	    <script type="text/javascript">		 
+	    	var getNoteList,scope; 
+		    seajs.use("./dist/js/listSubPage"); 
+		    var refreshList = function(){ 
+				getNoteList(window.scope);
+			}
 	    </script>
 	</head>
 

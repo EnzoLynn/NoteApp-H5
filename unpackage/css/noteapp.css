@@ -1,3 +1,7 @@
 body .mui-pull-top-pocket {
   top: 50px;
 }
+body .mui-bar .completeNote {
+  color: #E2890B;
+  padding-top: 12px;
+}

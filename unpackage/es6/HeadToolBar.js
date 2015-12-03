@@ -1,7 +1,12 @@
 define(function(require, exports, module) {
-
 	let HeadToolBar = React.createClass({
 		openAddWindow: function() {
+			var me = this;
+			me.setState({
+				backHome: 'block',
+				openAddWindow: 'block',
+				completeNote: 'block'
+			});
 			//及页面大小； 页面切换使用原生动画， 将最耗性能的部分交给原生实现. 
 			mui.openWindow({
 				url: "addNoteWindow.html",
@@ -9,11 +14,13 @@ define(function(require, exports, module) {
 				styles: {
 					top: 0, //新页面顶部位置
 					bottom: 0, //新页面底部位置
-					width: 100%, //新页面宽度，默认为100%
-					height: 100%, //新页面高度，默认为100% 
+					width: '100%', //新页面宽度，默认为100%
+					height: '100%', //新页面高度，默认为100% 
+					hardwareAccelerated:true //硬件加速
 				},
-				extras: {
-					  //自定义扩展参数，可以用来处理页面间传值
+				extras: { 
+					myname:'ttt'
+					//自定义扩展参数，可以用来处理页面间传值
 				},
 				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
 				show: {
@@ -29,16 +36,16 @@ define(function(require, exports, module) {
 						//height: waiting - dialog - height, //等待框背景区域高度，默认根据内容自动计算合适高度 
 					}
 				}
-			})
+			});
 
 		},
 		render: function() {
+			var me = this; 
 			return (
 				<div>
-				   <header className="mui-bar mui-bar-nav">
-						<a className="mui-icon mui-icon-bars mui-pull-left"></a>
-						<span className="mui-icon mui-icon-plusempty mui-pull-right" style={{color: '#999'}}
-						 onClick={this.alertMsg}></span>
+				   <header className="mui-bar mui-bar-nav">						 
+						<a className="mui-icon mui-icon-plusempty mui-pull-right" style={{color: '#999'}}
+						 onClick={me.openAddWindow}></a>						
 						<h1 className="mui-title">NoteApp </h1>
 					</header>  
 				</div>
