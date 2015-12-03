@@ -9,15 +9,18 @@ define(function (require, exports, module) {
 		addNote: function addNote() {
 			var me = this;
 			var val = me.refs.textarea.value;
+
 			var date = new Date();
-			if (this.state.myid != '') {
+			if (window.noteid != '') {
 				//编辑
-				plus.storage.setItem(this.state.myid + '', val);
+				plus.storage.setItem(window.noteid + '', val);
 			} else {
 				//新增
 				plus.storage.setItem(date.getTime() + '', val);
+				me.refs.textarea.value = '';
 			}
-
+			window.noteid = '';
+			window.noteval = '';
 			var ws = plus.webview.getWebviewById("listSubPage");
 			if (ws) {
 				ws.evalJS("refreshList()");
@@ -29,21 +32,6 @@ define(function (require, exports, module) {
 			me.addNote();
 		},
 
-		componentDidMount: function componentDidMount() {
-			var me = this;
-			var ws = plus.webview.getWebviewById('editNoteWindow');
-			if (ws) {
-				me.refs.textarea.value = ws.myval;
-				this.setState({
-					myid: ws.myid
-				});
-			}
-		},
-		getInitialState: function getInitialState() {
-			return {
-				myid: ''
-			};
-		},
 		render: function render() {
 			var me = this;
 
@@ -72,7 +60,7 @@ define(function (require, exports, module) {
 				React.createElement(
 					'div',
 					{ className: 'mui-content' },
-					React.createElement('textarea', { ref: 'textarea', style: { height: '600px' }, placeholder: '多行文本框' })
+					React.createElement('textarea', { id: 'textarea', ref: 'textarea', style: { height: '600px' }, placeholder: '多行文本框' })
 				)
 			);
 		}

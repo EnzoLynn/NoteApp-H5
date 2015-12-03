@@ -102,7 +102,7 @@
 		"NativeObj": {
 			"description": "原生对象"
 		},
-		"Push": {}
+		"Push": {},"Share":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -121,7 +121,7 @@
 						"description": ""
 					}
 				},
-				"share": {},
+				"share": {"weixin":{"appid":"wx165c1cf544b93de7","appsecret":"d4624c36b6795d1d99dcf0547af5443d","description":"可选，微信分享"}},
 				"push": {
 					"igexin": {
 						"appid": "Vayhe4V6CM9V8j9WWSF2V2",

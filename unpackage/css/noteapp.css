@@ -5,3 +5,6 @@ body .mui-bar .completeNote {
   color: #E2890B;
   padding-top: 12px;
 }
+body .listCell .mui-slider-handle {
+  min-height: 26px;
+}

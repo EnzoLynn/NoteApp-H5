@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<title>addNoteWindow</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-  		<script src="./dist/js/lib/react.js"></script>
-	    <script src="./dist/js/lib/react-dom.js"></script>
-	    <script type="text/javascript" src="./dist/js/lib/sea.js"></script>
-	    <script type="text/javascript" src="./dist/js/lib/seajs-text.js"></script>
-	    <script type="text/javascript" src="./dist/js/lib/seajs-css.js"></script>
-	    <script type="text/javascript" src="./dist/js/seaConfig.js"></script>
-	    <script src="./dist/js/lib/mui.js"></script>
-	    <link href="./dist/css/mui.css" rel="stylesheet" />
-	    <link href="./dist/css/noteapp.css" rel="stylesheet" />
-	    <script type="text/javascript">		  
-		    seajs.use("./dist/js/addNoteWindow");
-		    
-	    </script>
-	</head>
+<head>
+    <meta charset="utf-8">
+    <title>addNoteWindow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="./dist/js/lib/react.js"></script>
+    <script src="./dist/js/lib/react-dom.js"></script>
+    <script type="text/javascript" src="./dist/js/lib/sea.js"></script>
+    <script type="text/javascript" src="./dist/js/lib/seajs-text.js"></script>
+    <script type="text/javascript" src="./dist/js/lib/seajs-css.js"></script>
+    <script type="text/javascript" src="./dist/js/seaConfig.js"></script>
+    <script src="./dist/js/lib/mui.js"></script>
+    <link href="./dist/css/mui.css" rel="stylesheet" />
+    <link href="./dist/css/noteapp.css" rel="stylesheet" />
+    <script type="text/javascript">
+    seajs.use("./dist/js/addNoteWindow");
+    //var noteid,noteval;
+    var PushValue = function(id, val) {
+        window.noteid = id;
+        window.noteval = val;
+        mui('#textarea')[0].value = val;
+    }
+    var ClearValue = function() {
+        window.noteid = '';
+        window.noteval = '';
+        mui('#textarea')[0].value = '';
+    }
+    </script>
+</head>
 
-	<body>		 
-	 	<div class='container'></div>
-	</body>
+<body>
+    <div class='container'></div>
+</body>
 
 </html>

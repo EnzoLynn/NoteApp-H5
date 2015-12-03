@@ -22,9 +22,12 @@ define(function (require, exports, module) {
 			e.stopPropagation();
 			var me = this;
 			var val = plus.storage.getItem(key);
-			mui.openWindow({
+			if (val == null) {
+				val = '';
+			};
+			var ws = mui.openWindow({
 				url: "addNoteWindow.html",
-				id: "editNoteWindow",
+				id: "addNoteWindow",
 				styles: {
 					top: 0, //新页面顶部位置
 					bottom: 0, //新页面底部位置
@@ -33,8 +36,8 @@ define(function (require, exports, module) {
 					hardwareAccelerated: true //硬件加速
 				},
 				extras: {
-					myid: key,
-					myval: val
+					// myid:key,
+					// myval:val
 					//自定义扩展参数，可以用来处理页面间传值
 				},
 				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
@@ -52,16 +55,23 @@ define(function (require, exports, module) {
 					}
 				}
 			});
+			//plus.webview.getWebviewById('addNoteWindow');
+			if (ws) {
+				ws.evalJS("PushValue('" + key + "','" + val + "')");
+			};
 		},
 		render: function render() {
 			var _this = this;
 
 			var me = this;
 			var note = this.props.note;
+			if (note.val == null) {
+				note.val = '';
+			};
 			var val = note.val.length > 25 ? note.val.substring(0, 25) + '...' : note.val;
 			return React.createElement(
 				'li',
-				{ ref: 'muiLi', className: 'mui-table-view-cell' },
+				{ ref: 'muiLi', className: 'mui-table-view-cell listCell' },
 				React.createElement(
 					'div',
 					{ className: 'mui-slider-right mui-disabled ' },
@@ -75,12 +85,12 @@ define(function (require, exports, module) {
 				),
 				React.createElement(
 					'div',
-					{ className: 'mui-slider-handle' },
+					{ className: 'mui-slider-handle', onClick: function (e) {
+							return _this.editNote(e, note.key);
+						} },
 					React.createElement(
 						'a',
-						{ className: 'mui-navigate-right', onClick: function (e) {
-								return _this.editNote(e, note.key);
-							} },
+						{ className: 'mui-navigate-right' },
 						val
 					)
 				)
@@ -96,13 +106,21 @@ define(function (require, exports, module) {
 		for (var i = 0; i < numKeys; i++) {
 			var key = keyNames[i] = plus.storage.key(i);
 			var val = values[i] = plus.storage.getItem(keyNames[i]);
+			if (val == '') {
+				val = 'ww';
+			}
 			notes.push({
 				key: key,
 				val: val
 			});
 		}
+		notes.sort(function (a, b) {
+			var kA = a.key;
+			var kB = b.key;
+			return kA < kB ? 1 : -1;
+		}); //
 		me.setState({
-			notes: notes.reverse()
+			notes: notes
 		});
 	};
 	// 下拉刷新容器
@@ -117,6 +135,7 @@ define(function (require, exports, module) {
 			var table = document.body.querySelector('.mui-table-view');
 			var cells = document.body.querySelectorAll('.mui-table-view-cell');
 
+			me.getList();
 			mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
 			mui('#pullrefresh').pullRefresh().refresh(true);
 		},
@@ -159,9 +178,10 @@ define(function (require, exports, module) {
 				}
 			});
 
-			setTimeout(function () {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
+			window.getNoteList(me);
+			// setTimeout(function() {
+			// 	mui('#pullrefresh').pullRefresh().pullupLoading();
+			// }, 1000);
 		},
 		getInitialState: function getInitialState() {
 			return {

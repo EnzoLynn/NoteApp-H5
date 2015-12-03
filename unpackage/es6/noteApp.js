@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 
 	let NoteApp = React.createClass({
 		componentDidMount: function() {
-			var me = this;
+			var me = this; 
 			mui.init({
 				keyEventBind: {
 					backbutton: false //关闭back按键监听
@@ -43,7 +43,7 @@ define(function(require, exports, module) {
 					show: {
 						autoShow: true, //页面loaded事件发生后自动显示，默认为true
 						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
-						duration: 100 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						duration: 1 //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
 					},
 					waiting: {
 						autoShow: true, //自动显示等待框，默认为true
