@@ -2,7 +2,6 @@
 
 define(function (require, exports, module) {
 
-	var HeadToolBar = require('js/HeadToolBar.js');
 	var AddNoteForm = React.createClass({
 		displayName: 'AddNoteForm',
 

@@ -5,6 +5,37 @@ body .mui-bar .completeNote {
   color: #E2890B;
   padding-top: 12px;
 }
+body .mui-bar .sharethis {
+  font-size: 16px;
+}
+body .mui-content .shareBtnTable {
+  width: 100%;
+}
+body .mui-content .shareBtnTable td {
+  width: 30%;
+  text-align: center;
+}
+body .mui-content .sharecontent {
+  padding: 5px 5px 5px 5px;
+  width: 100%;
+  -webkit-user-select: text;
+  border: 1px solid #6C6C6C;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+body .mui-content .pic {
+  width: 100px;
+  height: 100px;
+  /*border: 1px dashed #CCCCCC;*/
+}
+body .mui-content .sharehref {
+  width: 80%;
+  -webkit-user-select: text;
+  border: 1px solid #6C6C6C;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  margin-bottom: .5em;
+}
 body .listCell .mui-slider-handle {
   min-height: 26px;
 }
