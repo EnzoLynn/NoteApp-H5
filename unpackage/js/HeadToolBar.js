@@ -6,6 +6,7 @@ define(function (require, exports, module) {
 	var Intent = null,
 	    File = null,
 	    Uri = null,
+	    pic = null,
 	    main = null;
 	/**
   * 更新分享服务
@@ -75,7 +76,7 @@ define(function (require, exports, module) {
 			return;
 		}
 		if (s.authenticated) {
-			//alert("---已授权---");
+			alert("---已授权---");
 			shareMessage(s, ex);
 		} else {
 			alert("---未授权---");
@@ -91,12 +92,14 @@ define(function (require, exports, module) {
   * @param {plus.share.ShareService} s
   */
 	function shareMessage(s, ex) {
+		alert('---分享---');
 		var msg = {
-			content: sharecontent.value,
+			content: '这是一个非常好用的东东',
 			extra: {
 				scene: ex
 			}
 		};
+		alert(bhref);
 		if (bhref) {
 			msg.href = sharehref.value;
 			//if (sharehrefTitle && sharehrefTitle.value != "") {
@@ -111,6 +114,7 @@ define(function (require, exports, module) {
 				msg.pictures = [pic.realUrl];
 			}
 		}
+		alert(JSON.stringify(msg));
 		//outLine(JSON.stringify(msg));
 		s.send(msg, function () {
 			alert("分享到\"" + s.description + "\"成功！ ");
