@@ -146,7 +146,10 @@ define(function (require, exports, module) {
 		//alert("拍照添加分享图片：");
 		var cmr = plus.camera.getCamera();
 		cmr.captureImage(function (p) {
+			alert(p);
 			plus.io.resolveLocalFileSystemURL(p, function (entry) {
+				alert("真实路径：" + entry.fullPath);
+				alert("路径：" + entry.toLocalURL);
 				me.pic.src = entry.toLocalURL();
 				me.pic.realUrl = p;
 				//alert("拍照图片：" + me.pic.realUrl);

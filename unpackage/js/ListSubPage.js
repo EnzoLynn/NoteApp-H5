@@ -1,10 +1,10 @@
 'use strict';
 
 define(function (require, exports, module) {
-	var $ = require('jquery');
 	mui.plusReady(function () {
 		ReactDOM.render(React.createElement(ListSubPage, null), mui('.subpageContainer')[0]);
 	});
+
 	var NoteRow = React.createClass({
 		displayName: 'NoteRow',
 
@@ -144,6 +144,7 @@ define(function (require, exports, module) {
 		}
 	});
 	window.getNoteList = function (scope) {
+
 		var me = scope;
 		var keyNames = [];
 		var values = [];
@@ -153,7 +154,7 @@ define(function (require, exports, module) {
 			var key = keyNames[i] = plus.storage.key(i);
 			var val = values[i] = plus.storage.getItem(keyNames[i]);
 			if (val == '') {
-				val = 'ww';
+				val = '';
 			}
 			notes.push({
 				key: key,
@@ -169,6 +170,7 @@ define(function (require, exports, module) {
 			notes: notes
 		});
 	};
+
 	// 下拉刷新容器
 	var ListSubPage = React.createClass({
 		displayName: 'ListSubPage',
@@ -223,42 +225,19 @@ define(function (require, exports, module) {
 					}
 				}
 			});
-
-			window.getNoteList(me);
-			// setTimeout(function() {
-			// 	mui('#pullrefresh').pullRefresh().pullupLoading();
-			// }, 1000);
+			//window.getNoteList(me);
+			setTimeout(function () {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			}, 1000);
 		},
 		getInitialState: function getInitialState() {
 			return {
-				notes: null
+				notes: []
 			};
 		},
 		render: function render() {
 			var me = this;
-			if (this.state.notes == null) {
-				return React.createElement(
-					'div',
-					null,
-					React.createElement(
-						'div',
-						{ id: 'pullrefresh', className: 'mui-content mui-scroll-wrapper' },
-						React.createElement(
-							'div',
-							{ className: 'mui-scroll' },
-							React.createElement(
-								'ul',
-								{ className: 'mui-table-view' },
-								React.createElement(
-									'li',
-									{ className: 'mui-table-view-cell listCell' },
-									'正在加载...'
-								)
-							)
-						)
-					)
-				);
-			}
+
 			var notes = [];
 			this.state.notes.forEach(function (note, index) {
 				notes.push(React.createElement(NoteRow, { note: note, afterdel1: me.getList }));

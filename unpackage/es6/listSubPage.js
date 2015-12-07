@@ -1,11 +1,11 @@
 define(function(require, exports, module) {
-	var $ = require('jquery');
-	mui.plusReady(function() {
+	mui.plusReady(function() { 
 		ReactDOM.render(
 			<ListSubPage />,
 			mui('.subpageContainer')[0]
 		);
 	});
+
 	let NoteRow = React.createClass({
 		delNote: function(e, key) {
 			e.stopPropagation();
@@ -125,6 +125,7 @@ define(function(require, exports, module) {
 		}
 	});
 	window.getNoteList = function(scope) {
+
 		var me = scope;
 		var keyNames = [];
 		var values = [];
@@ -134,7 +135,7 @@ define(function(require, exports, module) {
 			var key = keyNames[i] = plus.storage.key(i);
 			var val = values[i] = plus.storage.getItem(keyNames[i]);
 			if (val == '') {
-				val = 'ww';
+				val = '';
 			}
 			notes.push({
 				key: key,
@@ -145,11 +146,13 @@ define(function(require, exports, module) {
 			var kA = a.key;
 			var kB = b.key;
 			return kA < kB ? 1 : -1
-		}); //
+		}); // 
 		me.setState({
 			notes: notes
 		});
 	};
+
+
 	// 下拉刷新容器
 	var ListSubPage = React.createClass({
 		/**
@@ -204,39 +207,24 @@ define(function(require, exports, module) {
 					}
 				}
 			});
-
-			window.getNoteList(me);
-			// setTimeout(function() {
-			// 	mui('#pullrefresh').pullRefresh().pullupLoading();
-			// }, 1000);
+			//window.getNoteList(me);
+			setTimeout(function() {
+				mui('#pullrefresh').pullRefresh().pullupLoading();
+			}, 1000);
 
 		},
 		getInitialState: function() {
 			return {
-				notes: null
+				notes: []
 			};
 		},
 		render: function() {
 			var me = this;
-			if (this.state.notes == null) {
-				return (
-					<div>
-						<div id="pullrefresh" className="mui-content mui-scroll-wrapper">
-							<div className="mui-scroll"> 
-								<ul className="mui-table-view"> 
-									<li className='mui-table-view-cell listCell'>	 
-											 正在加载...  
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				);
-			}
+
 			var notes = [];
 			this.state.notes.forEach(function(note, index) {
 				notes.push(<NoteRow note={note}  afterdel1={me.getList}/>);
-			});
+			}); 
 			return (
 				<div>
 					<div id="pullrefresh" className="mui-content mui-scroll-wrapper">
@@ -250,4 +238,5 @@ define(function(require, exports, module) {
 			);
 		}
 	});
+	
 });

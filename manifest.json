@@ -109,6 +109,7 @@
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true
 		},
+		"ramcachemode" : "enable",
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
@@ -209,6 +210,113 @@
 					"xxhdpi": "unpackage/icon/2.png"
 				}
 			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"dist/js/lib/mui.js",
+					"dist/css/noteapp.css",
+					"dist/js/seaConfig.js",
+					"dist/js/lib/react.js",
+					"dist/js/lib/sea.js",
+					"dist/js/HeadToolBar.js",
+					"listSubPage.html",
+					"dist/js/lib/react-dom.js",
+					"dist/js/lib/seajs-text.js",
+					"dist/js/noteApp.js",
+					"dist/css/mui.css",
+					"dist/fonts/mui.ttf",
+					"dist/js/lib/seajs-css.js"
+				],
+				"refer": [
+					"Share.html",
+					"addNoteWindow.html"
+				],
+				"priority": 0
+			},
+			"Share.html": {
+				"resources": [
+					"dist/js/lib/mui.js",
+					"dist/css/noteapp.css",
+					"dist/js/lib/jquery.js",
+					"dist/js/seaConfig.js",
+					"dist/js/lib/react.js",
+					"dist/js/lib/merge.js",
+					"dist/js/lib/sea.js",
+					"dist/js/ShareHelper.js",
+					"dist/js/lib/react-dom.js",
+					"dist/js/lib/seajs-text.js",
+					"dist/js/share.js",
+					"dist/css/mui.css",
+					"dist/js/lib/seajs-css.js",
+					"dist/fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"addNoteWindow.html": {
+				"resources": [
+					"dist/js/lib/sea.js",
+					"dist/js/lib/mui.js",
+					"dist/js/lib/react-dom.js",
+					"dist/js/addNoteWindow.js",
+					"dist/css/noteapp.css",
+					"dist/js/lib/seajs-text.js",
+					"dist/js/seaConfig.js",
+					"dist/js/lib/react.js",
+					"dist/css/mui.css",
+					"dist/fonts/mui.ttf",
+					"dist/js/lib/seajs-css.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"listSubPage.html": {
+				"resources": [
+					"dist/js/lib/sea.js",
+					"dist/js/lib/mui.js",
+					"dist/js/lib/react-dom.js",
+					"dist/js/lib/seajs-text.js",
+					"dist/css/noteapp.css",
+					"dist/js/seaConfig.js",
+					"dist/js/lib/react.js",
+					"dist/css/mui.css",
+					"dist/fonts/mui.ttf",
+					"dist/js/lib/seajs-css.js",
+					"dist/js/lib/jquery.js",
+					"dist/js/ListSubPage.js"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"dist/js/addNoteWindow.js.map",
+				"dist/js/HeadToolBar.js.map",
+				"dist/js/guid.js",
+				"dist/js/lib/seajs-css.js.map",
+				"dist/css/noteapp.css.map",
+				"dist/js/share.js.map",
+				"dist/js/ListSubPage.js.map",
+				"dist/js/lib/mui.zip",
+				"info.html",
+				"dist/js/head.js",
+				"dist/js/guid.js.map",
+				"dist/js/ShareHelper.js.map",
+				"dist/image/4-108.png",
+				"dist/js/lib/seajs-text.js.map",
+				"dist/js/head.js.map",
+				"dist/js/noteApp.js.map",
+				"dist/js/Global.js.map",
+				"dist/minjs/NoteApp.js",
+				"dist/js/lib/sea.js.map",
+				"dist/css/mui.css.map",
+				"dist/js/seaConfig.js.map",
+				"dist/js/Global.js"
+			]
 		}
 	}
 }

@@ -3,7 +3,7 @@ define(function(require, exports, module) {
 	var first;
 
 
-	mui.plusReady(function() {
+	mui.plusReady(function() { 
 		ReactDOM.render(
 			<NoteApp />,
 			mui('.container')[0]
