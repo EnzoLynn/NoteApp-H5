@@ -2,6 +2,7 @@
 
 define(function (require, exports, module) {
 	var HeadToolBar = require('js/HeadToolBar.js');
+	var IndexDBHelper = require('js/IndexDBHelper.js');
 	var first;
 
 	mui.plusReady(function () {
@@ -18,7 +19,7 @@ define(function (require, exports, module) {
 					backbutton: false //关闭back按键监听
 				},
 				subpages: [{
-					url: 'listSubPage.html', //下拉刷新内容页面地址
+					url: 'test.html', //下拉刷新内容页面地址
 					id: 'listSubPage', //内容页面标志
 					styles: {
 						top: '48px',

@@ -1,20 +1,21 @@
 define(function(require, exports, module) {
- 
+
 	var AddNoteForm = React.createClass({
 		addNote: function() {
 			var me = this;
-			var val = me.refs.textarea.value;  
-			
-			var date = new Date(); 
-			if (window.noteid!= '') {//编辑
+			var val = me.refs.textarea.value;
+			val = escape(val);
+			if (window.noteid != '') { //编辑
 				plus.storage.setItem(window.noteid + '', val);
 
-			}else{//新增
-				plus.storage.setItem(date.getTime() + '', val); 
+			} else { //新增 
+			 	
+				var date = new Date();
+				plus.storage.setItem(date.getTime() + '', val);
 				me.refs.textarea.value = '';
 			}
 			window.noteid = '';
-		    window.noteval = '';
+			window.noteval = '';
 			var ws = plus.webview.getWebviewById("listSubPage");
 			if (ws) {
 				ws.evalJS("refreshList()");
@@ -26,13 +27,12 @@ define(function(require, exports, module) {
 		completeNote: function() {
 			var me = this;
 			mui.back();
-			me.addNote();
-
+		 	me.addNote(); 
 		},
-		 
+
 		render: function() {
 			var me = this;
-		 
+
 			return (
 				<div>  
 					 <header className="mui-bar mui-bar-nav">

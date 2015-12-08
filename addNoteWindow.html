@@ -20,9 +20,10 @@
     seajs.use("./dist/js/addNoteWindow");
     //var noteid,noteval;
     var PushValue = function(id, val) {
+        var esval = unescape(val);
         window.noteid = id;
-        window.noteval = val;
-        mui('#textarea')[0].value = val;
+        window.noteval = esval;
+        mui('#textarea')[0].value = esval;
     }
     var ClearValue = function() {
         window.noteid = '';

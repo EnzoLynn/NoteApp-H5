@@ -57,6 +57,7 @@ define(function (require, exports, module) {
 			});
 			//plus.webview.getWebviewById('addNoteWindow');
 			if (ws) {
+
 				ws.evalJS("PushValue('" + key + "','" + val + "')");
 			};
 		},
@@ -107,7 +108,10 @@ define(function (require, exports, module) {
 			if (note.val == null) {
 				note.val = '';
 			};
-			var val = note.val.length > 25 ? note.val.substring(0, 25) + '...' : note.val;
+
+			var deNote = unescape(note.val);
+			var val = deNote.length > 14 ? deNote.substring(0, 15) + '...' : deNote;
+
 			return React.createElement(
 				'li',
 				{ ref: 'muiLi', className: 'mui-table-view-cell listCell' },
@@ -227,17 +231,40 @@ define(function (require, exports, module) {
 			});
 			//window.getNoteList(me);
 			setTimeout(function () {
-				mui('#pullrefresh').pullRefresh().pullupLoading();
-			}, 1000);
+				window.getNoteList(me);
+				//mui('#pullrefresh').pullRefresh().pullupLoading();
+			}, 1);
 		},
 		getInitialState: function getInitialState() {
 			return {
-				notes: []
+				notes: null //[]
 			};
 		},
 		render: function render() {
 			var me = this;
-
+			if (this.state.notes == null) {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'div',
+						{ id: 'pullrefresh', className: 'mui-content mui-scroll-wrapper' },
+						React.createElement(
+							'div',
+							{ className: 'mui-scroll' },
+							React.createElement(
+								'ul',
+								{ className: 'mui-table-view' },
+								React.createElement(
+									'li',
+									{ ref: 'muiLi', className: 'mui-table-view-cell listCell' },
+									'正在加载...'
+								)
+							)
+						)
+					)
+				);
+			};
 			var notes = [];
 			this.state.notes.forEach(function (note, index) {
 				notes.push(React.createElement(NoteRow, { note: note, afterdel1: me.getList }));
