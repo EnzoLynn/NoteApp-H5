@@ -72,10 +72,14 @@ define(function (require, exports, module) {
 		},
 		delt: function delt(id) {
 			var me = this;
-			dbHelper.deleteById('table1', id, function (mes) {
-				if (mes.success) {
-					me.setState({
-						list: mes.result
+			dbHelper.deleteById('table1', id, function (dmes) {
+				if (dmes.success) {
+					dbHelper.find('table1', false, false, function (mes) {
+						if (mes.success) {
+							me.setState({
+								list: mes.result
+							});
+						};
 					});
 				};
 			});
