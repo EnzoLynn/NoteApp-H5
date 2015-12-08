@@ -90,12 +90,10 @@ define(function (require, exports, module) {
 
 			var notes = [];
 			this.state.list.forEach(function (note, index) {
-				var _this2 = this;
-
 				notes.push(React.createElement(
 					'li',
 					{ onClick: function () {
-							return _this2.delt(note.id);
+							return me.delt(note.id);
 						} },
 					note.id,
 					note.content

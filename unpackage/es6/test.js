@@ -83,7 +83,7 @@ define(function(require, exports, module) {
 
 			var notes = [];
 			this.state.list.forEach(function(note, index) { 
-				notes.push(<li onClick={()=>this.delt(note.id)}>{note.id}{note.content}</li>);
+				notes.push(<li onClick={()=>me.delt(note.id)}>{note.id}{note.content}</li>);
 			});
 			return (
 				<div>
