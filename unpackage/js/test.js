@@ -6,27 +6,10 @@ define(function (require, exports, module) {
 		ReactDOM.render(React.createElement(ListSubPage, null), mui('.subpageContainer')[0]);
 	});
 
-	var dbHelper;
+	var dbHelper,
+	    storeName = 'table',
+	    databaseName = 'test2';
 
-	var Row = React.createClass({
-		displayName: 'Row',
-
-		del: function del(id) {
-			this.props.del(id);
-		},
-		render: function render() {
-			var _this = this;
-
-			return React.createElement(
-				'li',
-				{ onClick: function () {
-						return _this.del(_this.props.note.id);
-					} },
-				this.props.note.id,
-				this.props.note.content
-			);
-		}
-	});
 	// 下拉刷新容器
 	var ListSubPage = React.createClass({
 		displayName: 'ListSubPage',
@@ -35,13 +18,15 @@ define(function (require, exports, module) {
 			var me = this;
 			dbHelper = new IndexDBHelper();
 			//dbHelper.distoryDatabase('test');
-			dbHelper.openDatabase('test', 'table1', false, function (omes) {
+			dbHelper.openDatabase(databaseName, storeName, false, function (omes) {
 				if (omes.success) {
 					//dbHelper.add('table1', [{
 					//content: '1111'
 					//}], function(ames) {
 					//if (ames.success) {
-					dbHelper.find('table1', false, false, function (mes) {
+					dbHelper.find(storeName, {
+						content: '1'
+					}, true, function (mes) {
 						if (mes.success) {
 							me.setState({
 								list: mes.result
@@ -56,11 +41,11 @@ define(function (require, exports, module) {
 		},
 		add: function add() {
 			var me = this;
-			dbHelper.add('table1', [{
-				content: '1111'
+			dbHelper.add(storeName, [{
+				content: '1222'
 			}], function (ames) {
 				if (ames.success) {
-					dbHelper.find('table1', false, false, function (mes) {
+					dbHelper.find(storeName, false, false, function (mes) {
 						if (mes.success) {
 							me.setState({
 								list: mes.result
@@ -72,9 +57,23 @@ define(function (require, exports, module) {
 		},
 		delt: function delt(id) {
 			var me = this;
-			dbHelper.deleteById('table1', id, function (dmes) {
+			dbHelper.deleteById(storeName, id, function (dmes) {
 				if (dmes.success) {
-					dbHelper.find('table1', false, false, function (mes) {
+					dbHelper.find(storeName, false, false, function (mes) {
+						if (mes.success) {
+							me.setState({
+								list: mes.result
+							});
+						};
+					});
+				};
+			});
+		},
+		update: function update(id) {
+			var me = this;
+			dbHelper.updateById(storeName, id, { content: '1update' }, function (dmes) {
+				if (dmes.success) {
+					dbHelper.find(storeName, false, false, function (mes) {
 						if (mes.success) {
 							me.setState({
 								list: mes.result
@@ -97,9 +96,8 @@ define(function (require, exports, module) {
 				notes.push(React.createElement(
 					'li',
 					{ onClick: function () {
-							return me.delt(note.id);
+							return me.update(note.id);
 						} },
-					note.id,
 					note.content
 				));
 			});

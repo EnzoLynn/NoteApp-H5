@@ -60,7 +60,7 @@ define(function(require, exports, module) {
 				// };
 			};
 			openRequest.onupgradeneeded = function(e) {
-				alert('open upgrade');
+				//alert('open upgrade');
 
 				me.localDatabase.db = e.target.result;
 				me.createObjectStore(storeName, false, false, function() {
@@ -275,11 +275,11 @@ define(function(require, exports, module) {
 	/**
 	 * 新增
 	 */
-	dbHelper.prototype.add = function(storeName, fieldArr, callback) {
+	dbHelper.prototype.add = function(storeName, fieldArr, callback) { 
 		try {
-			let me = this;
-			let transaction = me.localDatabase.db.transaction(storeName, "readwrite");
-			let store = transaction.objectStore(storeName);
+			let me = this; 
+			let transaction = me.localDatabase.db.transaction(storeName, "readwrite"); 
+			let store = transaction.objectStore(storeName); 
 			if (me.localDatabase != null && me.localDatabase.db != null) {
 				for (let i = 0; i < fieldArr.length; i++) {
 					let obj = fieldArr[i];
@@ -389,25 +389,25 @@ define(function(require, exports, module) {
 	dbHelper.prototype.updateById = function(storeName, id, setObj, callback) {
 		try {
 			let me = this;
-			var transaction = me.localDatabase.db.transaction(storeName, "readwrite");
-			var store = transaction.objectStore(storeName);
-			var record;
+			let transaction = me.localDatabase.db.transaction(storeName, "readwrite");
+			let store = transaction.objectStore(storeName);
+			let record;
 
 			if (me.localDatabase != null && me.localDatabase.db != null) {
 
 				store.get(id).onsuccess = function(e) {
 					record = e.target.result;
 
-					for (key in setObj) {
+					for (let key in setObj) {
 						if (record[key]) {
 							record[key] = setObj[key];
 						};
 					}
-					var request = store.put(record);
+					let request = store.put(record);
 
 					request.onsuccess = function(e) {
 						if (callback) {
-							var result = [];
+							let result = [];
 							result.push(record);
 							callback(new message({
 								success: true,

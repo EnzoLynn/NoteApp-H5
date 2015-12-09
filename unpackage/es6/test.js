@@ -7,31 +7,23 @@ define(function(require, exports, module) {
 		);
 	});
 
-	var dbHelper;
-
-	var Row = React.createClass({
-		del:function(id){
-			this.props.del(id);
-		},
-		render: function() {
-			return (
-				<li onClick={()=>this.del(this.props.note.id)}>{this.props.note.id}{this.props.note.content}</li>
-			);
-		}
-	});
+	var dbHelper,storeName='table',databaseName='test2';
+ 
 	// 下拉刷新容器
 	var ListSubPage = React.createClass({
 		componentDidMount: function() {
 			var me = this;
 			dbHelper = new IndexDBHelper();
 			//dbHelper.distoryDatabase('test');
-			dbHelper.openDatabase('test', 'table1', false, function(omes) {
+			dbHelper.openDatabase(databaseName, storeName, false, function(omes) {
 				if (omes.success) {
 					//dbHelper.add('table1', [{
 					//content: '1111'
 					//}], function(ames) {
 					//if (ames.success) {
-					dbHelper.find('table1', false, false, function(mes) {
+					dbHelper.find(storeName, {
+						content:'1'
+					}, true, function(mes) {
 						if (mes.success) {
 							me.setState({
 								list: mes.result
@@ -49,11 +41,11 @@ define(function(require, exports, module) {
 		},
 		add: function() {
 			var me = this;
-			dbHelper.add('table1', [{
-				content: '1111'
+			dbHelper.add(storeName, [{
+				content: '1222'
 			}], function(ames) {
 				if (ames.success) {
-					dbHelper.find('table1', false, false, function(mes) {
+					dbHelper.find(storeName, false, false, function(mes) {
 						if (mes.success) {
 							me.setState({
 								list: mes.result
@@ -65,9 +57,23 @@ define(function(require, exports, module) {
 		},
 		delt: function(id) {
 			var me = this;
-			dbHelper.deleteById('table1', id, function(dmes) {
+			dbHelper.deleteById(storeName, id, function(dmes) {
 				if (dmes.success) {
-					dbHelper.find('table1', false, false, function(mes) {
+					dbHelper.find(storeName, false, false, function(mes) {
+						if (mes.success) {
+							me.setState({
+								list: mes.result
+							});
+						};
+					});
+				};
+			});
+		},
+		update:function(id){
+			var me = this;
+			dbHelper.updateById(storeName, id,{content:'1update'}, function(dmes) {
+				if (dmes.success) {
+					dbHelper.find(storeName, false, false, function(mes) {
 						if (mes.success) {
 							me.setState({
 								list: mes.result
@@ -87,7 +93,7 @@ define(function(require, exports, module) {
 
 			var notes = [];
 			this.state.list.forEach(function(note, index) { 
-				notes.push(<li onClick={()=>me.delt(note.id)}>{note.id}{note.content}</li>);
+				notes.push(<li onClick={()=>me.update(note.id)}>{note.content}</li>);
 			});
 			return (
 				<div>
