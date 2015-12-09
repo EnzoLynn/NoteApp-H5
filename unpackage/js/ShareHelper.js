@@ -121,7 +121,7 @@ define(function (require, exports, module) {
 		};
 		//alert(me.bhref);
 		if (me.bhref) {
-			msg.href = 'www.baidu.com';
+			msg.href = 'https://github.com/EnzoLynn';
 			msg.title = "好用的App";
 			msg.content = '我正在使用NoteApp随手记，赶紧跟我一起来体验！';
 			msg.thumbs = ["./dist/image/4-108.png"];

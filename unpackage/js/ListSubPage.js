@@ -11,6 +11,9 @@ define(function (require, exports, module) {
 			alert(omes.msg);
 		}
 	});
+	window.refreshList = function () {
+		getNoteList(window.scope);
+	};
 	mui.plusReady(function () {
 		ReactDOM.render(React.createElement(ListSubPage, null), mui('.subpageContainer')[0]);
 	});

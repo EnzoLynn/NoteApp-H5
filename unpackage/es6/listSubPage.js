@@ -10,6 +10,9 @@ define(function(require, exports, module) {
 			alert(omes.msg);
 		}
 	});
+	window.refreshList = function() {
+		getNoteList(window.scope);
+	}
 	mui.plusReady(function() {
 		ReactDOM.render(
 			<ListSubPage />,
