@@ -251,7 +251,7 @@ define(function(require, exports, module) {
 			let store = transaction.objectStore(storeName);
 
 			if (me.localDatabase != null && me.localDatabase.db != null) {
-				store.get(id).onsuccess = function(e) {
+				store.get(id).onsuccess = function(e) { 
 					if (callback) {
 						callback(new message({
 							success: true,
@@ -391,13 +391,11 @@ define(function(require, exports, module) {
 			let me = this;
 			let transaction = me.localDatabase.db.transaction(storeName, "readwrite");
 			let store = transaction.objectStore(storeName);
-			let record;
 
-			if (me.localDatabase != null && me.localDatabase.db != null) {
-
+			let record; 
+			if (me.localDatabase != null && me.localDatabase.db != null) {  
 				store.get(id).onsuccess = function(e) {
-					record = e.target.result;
-
+					record = e.target.result; 
 					for (let key in setObj) {
 						if (record[key]) {
 							record[key] = setObj[key];
@@ -405,7 +403,7 @@ define(function(require, exports, module) {
 					}
 					let request = store.put(record);
 
-					request.onsuccess = function(e) {
+					request.onsuccess = function(es) {
 						if (callback) {
 							let result = [];
 							result.push(record);
@@ -417,11 +415,11 @@ define(function(require, exports, module) {
 						}
 					};
 
-					request.onerror = function(e) {
+					request.onerror = function(er) {
 						if (callback) {
 							callback(new message({
 								success: false,
-								msg: e,
+								msg: er,
 								result: null
 							}));
 						}

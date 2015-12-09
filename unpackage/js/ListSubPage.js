@@ -142,7 +142,7 @@ define(function (require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
-			var val = deNote.length > 14 ? deNote.substring(0, 15) + '...' : deNote;
+			var val = deNote.length > 10 ? deNote.substring(0, 10) + '...' : deNote;
 
 			return React.createElement(
 				'li',
@@ -174,8 +174,12 @@ define(function (require, exports, module) {
 						'a',
 						{ className: 'mui-navigate-right' },
 						val,
-						'   ',
-						note.createon
+						'  ',
+						React.createElement(
+							'span',
+							{ className: 'datetime' },
+							note.createon
+						)
 					)
 				)
 			);
@@ -207,8 +211,14 @@ define(function (require, exports, module) {
 		//
 		dbHelper.find(storeName, false, false, function (mes) {
 			if (mes.success) {
+				var notes = mes.result;
+				notes.sort(function (a, b) {
+					var kA = a.id;
+					var kB = b.id;
+					return kA < kB ? 1 : -1;
+				}); //
 				me.setState({
-					notes: mes.result
+					notes: notes
 				});
 			} else {
 				alert(mes.msg);

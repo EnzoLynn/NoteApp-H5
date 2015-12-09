@@ -9,6 +9,10 @@ define(function(require, exports, module) {
 				openAddWindow: 'block',
 				completeNote: 'block'
 			});
+			var mask = mui.createMask(); //callback为用户点击蒙版时自动执行的回调；
+			mask.show(); //显示遮罩
+			 
+				 
 			//及页面大小； 页面切换使用原生动画， 将最耗性能的部分交给原生实现. 
 			var ws = mui.openWindow({
 				url: "addNoteWindow.html",
@@ -44,7 +48,7 @@ define(function(require, exports, module) {
 				ws.evalJS("ClearValue()");
 			};
 			// plus.webview.getWebviewById('addNoteWindow'); 
-
+			mask.close(); //关闭遮罩
 
 		},
 		openShareWindow:function(){

@@ -6,6 +6,7 @@ define(function (require, exports, module) {
 	var dbHelper,
 	    storeName = 'Notes',
 	    databaseName = 'NoteApp';
+
 	dbHelper = new IndexDBHelper();
 	dbHelper.openDatabase(databaseName, storeName, false, function (omes) {
 		if (omes.success) {} else {
@@ -56,15 +57,18 @@ define(function (require, exports, module) {
 			// arr.push(week);
 			// return arr;
 		},
-		addNote: function addNote() {
+		addNote: function addNote(callback) {
 			var me = this;
 			var val = me.refs.textarea.value;
 			val = escape(val);
+			var date = me.getDateTime();
 			if (window.noteid != '') {
 				//编辑
+				var id = parseInt(window.noteid);
 				//plus.storage.setItem(window.noteid + '', val);
-				dbHelper.updateById(storeName, window.noteid, {
-					content: val
+				dbHelper.updateById(storeName, id, {
+					content: val,
+					createon: date
 				}, function (dmes) {
 					if (dmes.success) {
 						window.noteid = '';
@@ -72,6 +76,9 @@ define(function (require, exports, module) {
 						var ws = plus.webview.getWebviewById("listSubPage");
 						if (ws) {
 							ws.evalJS("refreshList()");
+						};
+						if (callback) {
+							callback();
 						};
 					} else {
 						alert(dmes.msg);
@@ -81,7 +88,7 @@ define(function (require, exports, module) {
 				//新增 
 				//var date = new Date();
 				//plus.storage.setItem(date.getTime() + '', val);
-				var date = me.getDateTime();
+
 				dbHelper.add(storeName, [{
 					content: val,
 					createon: date
@@ -94,16 +101,24 @@ define(function (require, exports, module) {
 						if (ws) {
 							ws.evalJS("refreshList()");
 						};
+						if (callback) {
+							callback();
+						};
 					} else {
-						alert(dmes.msg);
+						alert(ames.msg);
 					}
 				});
 			}
 		},
 		completeNote: function completeNote() {
 			var me = this;
-			mui.back();
-			me.addNote();
+			var mask = mui.createMask(); //callback为用户点击蒙版时自动执行的回调；
+			mask.show(); //显示遮罩
+			me.addNote(function () {
+
+				mui.back();
+				mask.close(); //关闭遮罩
+			});
 		},
 		componentDidMount: function componentDidMount() {
 			var me = this;
@@ -141,7 +156,17 @@ define(function (require, exports, module) {
 			);
 		}
 	});
-
+	window.PushValue = function (id, val) {
+		var esval = unescape(val);
+		window.noteid = id;
+		window.noteval = esval;
+		mui('#textarea')[0].value = esval;
+	};
+	window.ClearValue = function () {
+		window.noteid = '';
+		window.noteval = '';
+		mui('#textarea')[0].value = '';
+	};
 	mui.plusReady(function () {
 		ReactDOM.render(React.createElement(AddNoteForm, null), mui('.container')[0]);
 	});

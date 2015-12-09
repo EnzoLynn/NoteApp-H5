@@ -18,18 +18,18 @@
     <link href="./dist/css/noteapp.css" rel="stylesheet" />
     <script type="text/javascript">
     seajs.use("./dist/js/addNoteWindow");
-    //var noteid,noteval;
-    var PushValue = function(id, val) {
-        var esval = unescape(val);
-        window.noteid = id;
-        window.noteval = esval;
-        mui('#textarea')[0].value = esval;
-    }
-    var ClearValue = function() {
-        window.noteid = '';
-        window.noteval = '';
-        mui('#textarea')[0].value = '';
-    }
+    var PushValue,ClearValue;
+    // PushValue = function(id, val) {
+    //     var esval = unescape(val);
+    //     window.noteid = id;
+    //     window.noteval = esval;
+    //     mui('#textarea')[0].value = esval;
+    // }
+    // ClearValue = function() {
+    //     window.noteid = '';
+    //     window.noteval = '';
+    //     mui('#textarea')[0].value = '';
+    // }
     </script>
 </head>
 
