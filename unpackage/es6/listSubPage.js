@@ -143,7 +143,7 @@ define(function(require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
-			var val = deNote.length > 10 ? deNote.substring(0, 10) + '...' : deNote;
+			var val = deNote.length > 15 ? deNote.substring(0, 15) + '...' : deNote;
 
 			return (
 
@@ -156,7 +156,8 @@ define(function(require, exports, module) {
 					
 					<div className="mui-slider-handle" onClick={(e)=>this.editNote(e,note.id)}> 
 						<a className="mui-navigate-right" >
-							{val}  <span className="datetime">{note.createon}</span>  
+							{val} 
+							<p class='mui-ellipsis'>{note.createon}</p> 
 						</a>
 					</div>
 					

@@ -142,7 +142,7 @@ define(function (require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
-			var val = deNote.length > 10 ? deNote.substring(0, 10) + '...' : deNote;
+			var val = deNote.length > 15 ? deNote.substring(0, 15) + '...' : deNote;
 
 			return React.createElement(
 				'li',
@@ -174,10 +174,9 @@ define(function (require, exports, module) {
 						'a',
 						{ className: 'mui-navigate-right' },
 						val,
-						'  ',
 						React.createElement(
-							'span',
-							{ className: 'datetime' },
+							'p',
+							{ 'class': 'mui-ellipsis' },
 							note.createon
 						)
 					)

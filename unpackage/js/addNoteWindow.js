@@ -38,7 +38,7 @@ define(function (require, exports, module) {
 				return _str.slice(_str.length - size);
 			}
 		},
-		getDateTime: function getDateTime() {
+		getDateTime: function getDateTime(time) {
 			var me = this;
 			var now = new Date();
 			var year = now.getFullYear();
@@ -50,7 +50,7 @@ define(function (require, exports, module) {
 			//"" + year + "年" +
 			var str = month + "月" + day + "日 " + me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2) + "";
 			var week = me.getWeek();
-			return year + '/' + month + '/' + day;
+			return year + '/' + month + '/' + day + ' ' + me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2);
 			// let arr = [];
 			// arr.push(me.preZeroFill(hours, 2));
 			// arr.push(me.preZeroFill(minutes, 2));

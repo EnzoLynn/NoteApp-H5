@@ -33,7 +33,7 @@ define(function(require, exports, module) {
 				return _str.slice(_str.length - size);
 			}
 		},
-		getDateTime: function() {
+		getDateTime: function(time) {
 			let me = this;
 			let now = new Date();
 			let year = now.getFullYear();
@@ -44,8 +44,8 @@ define(function(require, exports, module) {
 			let seconds = now.getSeconds();
 			//"" + year + "年" +
 			let str = month + "月" + day + "日 " + me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2) + "";
-			let week = me.getWeek();
-			return year + '/' + month + '/' + day;
+			let week = me.getWeek(); 
+			return year + '/' + month + '/' + day+' '+me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2) ;
 			// let arr = [];
 			// arr.push(me.preZeroFill(hours, 2));
 			// arr.push(me.preZeroFill(minutes, 2));
@@ -63,7 +63,7 @@ define(function(require, exports, module) {
 				//plus.storage.setItem(window.noteid + '', val); 
 				dbHelper.updateById(storeName, id, {
 					content: val,
-					createon: date
+					createon: date 
 				}, function(dmes) {
 					if (dmes.success) {
 						window.noteid = '';
