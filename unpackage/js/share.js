@@ -6,7 +6,10 @@ define(function (require, exports, module) {
 	var $ = require('jquery');
 
 	share.Init();
-
+	window.ShareText = function (val) {
+		var esval = unescape(val);
+		mui('.sharecontent')[0].value = esval;
+	};
 	var ShareWin = React.createClass({
 		displayName: 'ShareWin',
 

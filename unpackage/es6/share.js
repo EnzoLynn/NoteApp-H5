@@ -4,7 +4,10 @@ define(function(require, exports, module) {
 	var $ = require('jquery');
 
 	share.Init();
-
+	window.ShareText = function(val) {
+		var esval = unescape(val);
+		mui('.sharecontent')[0].value = esval;
+	}
 	var ShareWin = React.createClass({
 		shareShow: function() {
 			var me = this;
@@ -14,31 +17,31 @@ define(function(require, exports, module) {
 			};
 			share.pic = pic;
 			if (me.refs.useLink.checked) {
-				share.msg.href='www.noteapp.com';
+				share.msg.href = 'www.noteapp.com';
 			};
 			share.bhref = me.refs.useLink.checked ? true : false;
 			share.shareShow();
 		},
-		sharePic:function(type){
+		sharePic: function(type) {
 			var me = this;
 			var pic = me.refs.sharepic;
 			share.pic = pic;
-			if (type=="shareGalleryPicture") {
+			if (type == "shareGalleryPicture") {
 				share.shareGalleryPicture();
 				return;
 			};
-			if (type=="shareLogoPicture") {
+			if (type == "shareLogoPicture") {
 				share.shareLogoPicture();
 				return;
 			};
-			if (type=="shareCameraPicture") {
+			if (type == "shareCameraPicture") {
 				share.shareCameraPicture();
 				return;
 			};
-			  
+
 		},
 		useLink: function() {
-			var me = this; 
+			var me = this;
 			if (me.refs.useLink.checked) {
 				me.refs.imgTable.style.display = 'none';
 			} else {
@@ -46,13 +49,13 @@ define(function(require, exports, module) {
 			}
 
 		},
-		backHome:function(){
+		backHome: function() {
 			var me = this;
 			var pic = me.refs.sharepic;
 			me.refs.sharecontent.value = "我正在使用NoteApp随手记，赶紧跟我一起来体验！";
 			pic.src = 'xxx.png';
 			pic.realUrl = '';
-			 
+
 			share.pic = null;
 			mui.back();
 		},

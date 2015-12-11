@@ -391,10 +391,11 @@ define(function (require, exports, module) {
 					store.get(id).onsuccess = function (e) {
 						record = e.target.result;
 						for (var key in setObj) {
-							if (record[key]) {
+							if (record[key] || record[key] == "") {
 								record[key] = setObj[key];
 							};
 						}
+
 						var request = store.put(record);
 
 						request.onsuccess = function (es) {

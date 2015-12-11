@@ -55,16 +55,16 @@ define(function(require, exports, module) {
 		},
 		addNote: function(callback) {
 			var me = this;
-			var val = me.refs.textarea.value;
+			var val = me.refs.textarea.value; 
 			val = escape(val);
 			var date = me.getDateTime();
 			if (window.noteid != '') { //编辑
-				var id = parseInt(window.noteid);
+				var id = parseInt(window.noteid);  
 				//plus.storage.setItem(window.noteid + '', val); 
 				dbHelper.updateById(storeName, id, {
 					content: val,
 					createon: date 
-				}, function(dmes) {
+				}, function(dmes) { 
 					if (dmes.success) {
 						window.noteid = '';
 						window.noteval = '';

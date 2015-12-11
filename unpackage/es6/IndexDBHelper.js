@@ -395,12 +395,13 @@ define(function(require, exports, module) {
 			let record; 
 			if (me.localDatabase != null && me.localDatabase.db != null) {  
 				store.get(id).onsuccess = function(e) {
-					record = e.target.result; 
-					for (let key in setObj) {
-						if (record[key]) {
-							record[key] = setObj[key];
+					record = e.target.result;  
+					for (let key in setObj) { 
+						if (record[key] || record[key] == "") { 
+							record[key] = setObj[key]; 
 						};
 					}
+ 
 					let request = store.put(record);
 
 					request.onsuccess = function(es) {
