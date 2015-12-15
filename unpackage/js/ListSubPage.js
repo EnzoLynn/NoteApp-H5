@@ -188,7 +188,7 @@ define(function (require, exports, module) {
 			);
 		}
 	});
-	window.getNoteList = function (scope) {
+	window.getNoteList = function (scope, searchVal) {
 
 		var me = scope;
 		//var keyNames = [];
@@ -212,21 +212,41 @@ define(function (require, exports, module) {
 		// 	return kA < kB ? 1 : -1
 		// }); //
 		//
-		dbHelper.find(storeName, false, false, function (mes) {
-			if (mes.success) {
-				var notes = mes.result;
-				notes.sort(function (a, b) {
-					var kA = a.id;
-					var kB = b.id;
-					return kA < kB ? 1 : -1;
-				}); //
-				me.setState({
-					notes: notes
-				});
-			} else {
-				alert(mes.msg);
-			}
-		});
+		if (searchVal && searchVal != '') {
+			dbHelper.find(storeName, {
+				content: escape(searchVal)
+			}, true, function (mes) {
+				if (mes.success) {
+					var notes = mes.result;
+					notes.sort(function (a, b) {
+						var kA = a.id;
+						var kB = b.id;
+						return kA < kB ? 1 : -1;
+					}); //
+					me.setState({
+						notes: notes
+					});
+				} else {
+					alert(mes.msg);
+				}
+			});
+		} else {
+			dbHelper.find(storeName, false, false, function (mes) {
+				if (mes.success) {
+					var notes = mes.result;
+					notes.sort(function (a, b) {
+						var kA = a.id;
+						var kB = b.id;
+						return kA < kB ? 1 : -1;
+					}); //
+					me.setState({
+						notes: notes
+					});
+				} else {
+					alert(mes.msg);
+				}
+			});
+		}
 	};
 
 	// 下拉刷新容器
@@ -267,7 +287,14 @@ define(function (require, exports, module) {
 		},
 		getList: function getList() {
 			var me = this;
-			window.getNoteList(me);
+			window.getNoteList(me, me.refs.searchInput.value);
+		},
+		searchList: function searchList(e) {
+			var me = this;
+			if (e.keyCode == 13) {
+				window.getNoteList(me, me.refs.searchInput.value);
+				me.refs.searchInput.blur();
+			};
 		},
 		componentDidMount: function componentDidMount() {
 			var me = this;
@@ -302,8 +329,11 @@ define(function (require, exports, module) {
 			};
 		},
 		render: function render() {
+			var _this2 = this;
+
 			var me = this;
 			if (this.state.notes == null) {
+
 				return React.createElement(
 					'div',
 					null,
@@ -342,7 +372,9 @@ define(function (require, exports, module) {
 					React.createElement(
 						'div',
 						{ className: 'mui-input-row mui-search' },
-						React.createElement('input', { type: 'search', className: 'mui-input-clear', placeholder: '输入搜索内容' })
+						React.createElement('input', { type: 'search', ref: 'searchInput', className: 'mui-input-clear searchNotes', onKeyDown: function (e) {
+								return _this2.searchList(e);
+							}, placeholder: '输入搜索内容' })
 					),
 					React.createElement(
 						'div',

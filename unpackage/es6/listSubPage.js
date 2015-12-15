@@ -13,15 +13,15 @@ define(function(require, exports, module) {
 	window.refreshList = function() {
 		getNoteList(window.scope);
 	}
-	 
+
 	mui.plusReady(function() {
 		ReactDOM.render(
 			<ListSubPage />,
 			mui('.subpageContainer')[0]
-		); 
+		);
 
 	});
- 
+
 
 	let NoteRow = React.createClass({
 		delNote: function(e, key) {
@@ -171,7 +171,7 @@ define(function(require, exports, module) {
 			);
 		}
 	});
-	window.getNoteList = function(scope) {
+	window.getNoteList = function(scope, searchVal) {
 
 		var me = scope;
 		//var keyNames = [];
@@ -195,21 +195,42 @@ define(function(require, exports, module) {
 		// 	return kA < kB ? 1 : -1
 		// }); // 
 		// 
-		dbHelper.find(storeName, false, false, function(mes) {
-			if (mes.success) {
-				var notes = mes.result;
-				notes.sort(function(a, b) {
-					var kA = a.id;
-					var kB = b.id;
-					return kA < kB ? 1 : -1
-				}); // 
-				me.setState({
-					notes: notes
-				});
-			} else {
-				alert(mes.msg);
-			}
-		});
+		if (searchVal && searchVal != '') {
+			dbHelper.find(storeName, {
+				content: escape(searchVal)
+			}, true, function(mes) {
+				if (mes.success) {
+					var notes = mes.result;
+					notes.sort(function(a, b) {
+						var kA = a.id;
+						var kB = b.id;
+						return kA < kB ? 1 : -1
+					}); // 
+					me.setState({
+						notes: notes
+					});
+				} else {
+					alert(mes.msg);
+				}
+			});
+		} else {
+			dbHelper.find(storeName, false, false, function(mes) {
+				if (mes.success) {
+					var notes = mes.result;
+					notes.sort(function(a, b) {
+						var kA = a.id;
+						var kB = b.id;
+						return kA < kB ? 1 : -1
+					}); // 
+					me.setState({
+						notes: notes
+					});
+				} else {
+					alert(mes.msg);
+				}
+			});
+		}
+
 
 	};
 
@@ -253,7 +274,14 @@ define(function(require, exports, module) {
 		},
 		getList: function() {
 			var me = this;
-			window.getNoteList(me);
+			window.getNoteList(me, me.refs.searchInput.value);
+		},
+		searchList: function(e) {
+			var me = this;  
+			if (e.keyCode == 13) {  
+				window.getNoteList(me, me.refs.searchInput.value);
+				me.refs.searchInput.blur();
+			};
 		},
 		componentDidMount: function() {
 			var me = this;
@@ -281,7 +309,7 @@ define(function(require, exports, module) {
 				//mui('#pullrefresh').pullRefresh().pullupLoading();
 			}, 1);
 			//window.getNoteList(me); 
-			
+
 
 		},
 		getInitialState: function() {
@@ -292,9 +320,10 @@ define(function(require, exports, module) {
 		render: function() {
 			var me = this;
 			if (this.state.notes == null) {
+
 				return (
 					<div>						 
-						<div id="pullrefresh" className="mui-content mui-scroll-wrapper">							 
+						<div id="pullrefresh" className="mui-content mui-scroll-wrapper">	 
 							<div className="mui-scroll"> 
 								<ul className="mui-table-view"> 
 									<li ref="muiLi" className='mui-table-view-cell listCell'>	
@@ -310,14 +339,15 @@ define(function(require, exports, module) {
 			this.state.notes.forEach(function(note, index) {
 				notes.push(<NoteRow note={note}  afterdel1={me.getList}/>);
 			});
-			setTimeout(function(){ 
+			setTimeout(function() {
 				mui('.mui-input-row input').input();
-			},1);
+
+			}, 1);
 			return (
 				<div>					
 					<div id="pullrefresh" className="mui-content mui-scroll-wrapper">	
 						 <div className="mui-input-row mui-search">
-					        <input type="search" className="mui-input-clear" placeholder="输入搜索内容" />
+					        <input type="search" ref='searchInput' className="mui-input-clear searchNotes" onKeyDown={(e)=>this.searchList(e)}  placeholder="输入搜索内容" />
 					    </div>										
 						<div className="mui-scroll"> 						
 							<ul className="mui-table-view">  
