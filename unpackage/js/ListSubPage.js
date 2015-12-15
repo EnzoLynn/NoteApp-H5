@@ -14,6 +14,7 @@ define(function (require, exports, module) {
 	window.refreshList = function () {
 		getNoteList(window.scope);
 	};
+
 	mui.plusReady(function () {
 		ReactDOM.render(React.createElement(ListSubPage, null), mui('.subpageContainer')[0]);
 	});
@@ -329,12 +330,20 @@ define(function (require, exports, module) {
 			this.state.notes.forEach(function (note, index) {
 				notes.push(React.createElement(NoteRow, { note: note, afterdel1: me.getList }));
 			});
+			setTimeout(function () {
+				mui('.mui-input-row input').input();
+			}, 1);
 			return React.createElement(
 				'div',
 				null,
 				React.createElement(
 					'div',
 					{ id: 'pullrefresh', className: 'mui-content mui-scroll-wrapper' },
+					React.createElement(
+						'div',
+						{ className: 'mui-input-row mui-search' },
+						React.createElement('input', { type: 'search', className: 'mui-input-clear', placeholder: '输入搜索内容' })
+					),
 					React.createElement(
 						'div',
 						{ className: 'mui-scroll' },

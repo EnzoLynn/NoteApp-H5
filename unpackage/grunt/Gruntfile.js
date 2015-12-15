@@ -14,8 +14,12 @@ module.exports = function(grunt) {
             dist: {
                 // 将要被合并的文件
                 //src: ['<%= jsdest %>**/*.js', '<%= jsdest %>!ext4/**/*.js'],
-                src: ['<%= jsdest %>**/noteApp.js'
-                , '<%= jsdest %>!ext4/**/*.js'],
+                src: ['<%= jsdest %>**/noteApp.js',
+                '<%= jsdest %>**/addNoteWindow.js',
+                '<%= jsdest %>**/HeadToolBar.js','<%= jsdest %>**/IndexDBHelper.js',
+                '<%= jsdest %>**/ListSubPage.js','<%= jsdest %>**/seaConfig.js',
+                '<%= jsdest %>**/share.js','<%= jsdest %>**/ShareHelper.js',
+                '<%= jsdest %>!ext4/**/*.js'],
                 // 合并后的JS文件的存放位置
                 dest: '../../dist/minjs/<%= pkg.name %>.js'
             }

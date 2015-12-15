@@ -13,12 +13,15 @@ define(function(require, exports, module) {
 	window.refreshList = function() {
 		getNoteList(window.scope);
 	}
+	 
 	mui.plusReady(function() {
 		ReactDOM.render(
 			<ListSubPage />,
 			mui('.subpageContainer')[0]
-		);
+		); 
+
 	});
+ 
 
 	let NoteRow = React.createClass({
 		delNote: function(e, key) {
@@ -277,8 +280,8 @@ define(function(require, exports, module) {
 				window.getNoteList(me);
 				//mui('#pullrefresh').pullRefresh().pullupLoading();
 			}, 1);
-			//window.getNoteList(me);
-
+			//window.getNoteList(me); 
+			
 
 		},
 		getInitialState: function() {
@@ -290,8 +293,8 @@ define(function(require, exports, module) {
 			var me = this;
 			if (this.state.notes == null) {
 				return (
-					<div>
-						<div id="pullrefresh" className="mui-content mui-scroll-wrapper">
+					<div>						 
+						<div id="pullrefresh" className="mui-content mui-scroll-wrapper">							 
 							<div className="mui-scroll"> 
 								<ul className="mui-table-view"> 
 									<li ref="muiLi" className='mui-table-view-cell listCell'>	
@@ -307,11 +310,17 @@ define(function(require, exports, module) {
 			this.state.notes.forEach(function(note, index) {
 				notes.push(<NoteRow note={note}  afterdel1={me.getList}/>);
 			});
+			setTimeout(function(){ 
+				mui('.mui-input-row input').input();
+			},1);
 			return (
-				<div>
-					<div id="pullrefresh" className="mui-content mui-scroll-wrapper">
-						<div className="mui-scroll"> 
-							<ul className="mui-table-view"> 
+				<div>					
+					<div id="pullrefresh" className="mui-content mui-scroll-wrapper">	
+						 <div className="mui-input-row mui-search">
+					        <input type="search" className="mui-input-clear" placeholder="输入搜索内容" />
+					    </div>										
+						<div className="mui-scroll"> 						
+							<ul className="mui-table-view">  
 								{notes}
 							</ul>
 						</div>

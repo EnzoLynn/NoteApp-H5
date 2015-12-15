@@ -1,19 +1,22 @@
 define(function(require, exports, module) {
 	var HeadToolBar = require('js/HeadToolBar.js');
+	var Navigator = require('js/Navigator.js');
 	var first;
 
 
-	mui.plusReady(function() { 
+	mui.plusReady(function() {
 		ReactDOM.render(
 			<NoteApp />,
 			mui('.container')[0]
 		);
+
+
 	});
 
 
 	let NoteApp = React.createClass({
 		componentDidMount: function() {
-			var me = this; 
+			var me = this;
 			mui.init({
 				keyEventBind: {
 					backbutton: false //关闭back按键监听
@@ -23,7 +26,7 @@ define(function(require, exports, module) {
 					id: 'listSubPage', //内容页面标志
 					styles: {
 						top: '48px',
-						bottom: '10px',
+						bottom: '51px',
 					}
 				}],
 				preloadPages: [{
@@ -53,7 +56,7 @@ define(function(require, exports, module) {
 							//height: waiting - dialog - height, //等待框背景区域高度，默认根据内容自动计算合适高度 
 						}
 					}
-				},{
+				}, {
 					url: "Share.html",
 					id: "Share",
 					styles: {
@@ -101,10 +104,33 @@ define(function(require, exports, module) {
 			});
 
 		},
+		getInitialState: function() {
+			return {
+				subpages: [{
+					url: 'listSubPage.html',
+					icon: 'mui-icon-home',
+					title: '首页'
+				}, {
+					url: 'subpages/tab-webview-subpage-chat.html',
+					icon: 'mui-icon-email',
+					title: '消息',
+					tip: 9
+				}, {
+					url: 'subpages/tab-webview-subpage-contact.html',
+					icon: 'mui-icon-contact',
+					title: '通讯录'
+				}, {
+					url: 'subpages/tab-webview-subpage-setting.html',
+					icon: 'mui-icon-gear',
+					title: '设置'
+				}]
+			};
+		},
 		render: function() {
 			return (
 				<div> 
-					<HeadToolBar currpage="home"/> 
+					<HeadToolBar currpage="home"/> 					
+					<Navigator subpages={this.state.subpages}/>
 				</div>
 			);
 		}

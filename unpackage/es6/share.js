@@ -49,21 +49,31 @@ define(function(require, exports, module) {
 			}
 
 		},
-		backHome: function() {
-			var me = this;
+		backHome: function(scope) {
+			var me = scope;
 			var pic = me.refs.sharepic;
 			me.refs.sharecontent.value = "我正在使用NoteApp随手记，赶紧跟我一起来体验！";
 			pic.src = 'xxx.png';
 			pic.realUrl = '';
 
 			share.pic = null;
-			mui.back();
+		},
+		 
+		componentDidMount: function() {
+			var me = this;
+			mui.init({
+				beforeback: function() {
+					me.backHome(me);
+				}
+			});
+
+		 
 		},
 		render: function() {
 			return (
 				<div>
 					 <header className="mui-bar mui-bar-nav">
-						<a onClick={this.backHome} className="mui-icon  mui-pull-left backHome">返回</a> 
+						<a className="mui-action-back mui-icon  mui-pull-left backHome">返回</a> 
 						<span className="mui-pull-right completeNote" onClick={()=>this.shareShow()}>分享</span>						 
 						<h1 className="mui-title">NoteApp </h1>
 					</header>  
@@ -92,16 +102,26 @@ define(function(require, exports, module) {
 									</tr>
 								</tbody>
 							</table> 
+
+						
 					</div> 
+
+				
 				</div>
 			);
 		}
 	});
-
+	// $(function() {
+	// 	ReactDOM.render(
+	// 		<ShareWin />,
+	// 		mui('.container')[0]
+	// 	);
+	// });
 	mui.plusReady(function() {
 		ReactDOM.render(
 			<ShareWin />,
 			mui('.container')[0]
 		);
+
 	});
 });

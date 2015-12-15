@@ -2,6 +2,7 @@
 
 define(function (require, exports, module) {
 	var HeadToolBar = require('js/HeadToolBar.js');
+	var Navigator = require('js/Navigator.js');
 	var first;
 
 	mui.plusReady(function () {
@@ -22,7 +23,7 @@ define(function (require, exports, module) {
 					id: 'listSubPage', //内容页面标志
 					styles: {
 						top: '48px',
-						bottom: '10px'
+						bottom: '51px'
 					}
 				}],
 				preloadPages: [{
@@ -99,11 +100,34 @@ define(function (require, exports, module) {
 				}
 			});
 		},
+		getInitialState: function getInitialState() {
+			return {
+				subpages: [{
+					url: 'listSubPage.html',
+					icon: 'mui-icon-home',
+					title: '首页'
+				}, {
+					url: 'subpages/tab-webview-subpage-chat.html',
+					icon: 'mui-icon-email',
+					title: '消息',
+					tip: 9
+				}, {
+					url: 'subpages/tab-webview-subpage-contact.html',
+					icon: 'mui-icon-contact',
+					title: '通讯录'
+				}, {
+					url: 'subpages/tab-webview-subpage-setting.html',
+					icon: 'mui-icon-gear',
+					title: '设置'
+				}]
+			};
+		},
 		render: function render() {
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(HeadToolBar, { currpage: 'home' })
+				React.createElement(HeadToolBar, { currpage: 'home' }),
+				React.createElement(Navigator, { subpages: this.state.subpages })
 			);
 		}
 	});

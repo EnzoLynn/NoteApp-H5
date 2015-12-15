@@ -51,15 +51,23 @@ define(function (require, exports, module) {
 				me.refs.imgTable.style.display = 'table';
 			}
 		},
-		backHome: function backHome() {
-			var me = this;
+		backHome: function backHome(scope) {
+			var me = scope;
 			var pic = me.refs.sharepic;
 			me.refs.sharecontent.value = "我正在使用NoteApp随手记，赶紧跟我一起来体验！";
 			pic.src = 'xxx.png';
 			pic.realUrl = '';
 
 			share.pic = null;
-			mui.back();
+		},
+
+		componentDidMount: function componentDidMount() {
+			var me = this;
+			mui.init({
+				beforeback: function beforeback() {
+					me.backHome(me);
+				}
+			});
 		},
 		render: function render() {
 			var _this = this;
@@ -72,7 +80,7 @@ define(function (require, exports, module) {
 					{ className: 'mui-bar mui-bar-nav' },
 					React.createElement(
 						'a',
-						{ onClick: this.backHome, className: 'mui-icon  mui-pull-left backHome' },
+						{ className: 'mui-action-back mui-icon  mui-pull-left backHome' },
 						'返回'
 					),
 					React.createElement(
@@ -190,7 +198,12 @@ define(function (require, exports, module) {
 			);
 		}
 	});
-
+	// $(function() {
+	// 	ReactDOM.render(
+	// 		<ShareWin />,
+	// 		mui('.container')[0]
+	// 	);
+	// });
 	mui.plusReady(function () {
 		ReactDOM.render(React.createElement(ShareWin, null), mui('.container')[0]);
 	});
