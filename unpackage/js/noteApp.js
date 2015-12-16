@@ -116,7 +116,7 @@ define(function (require, exports, module) {
 					icon: 'mui-icon-contact',
 					title: '通讯录'
 				}, {
-					url: 'subpages/tab-webview-subpage-setting.html',
+					url: 'subpages/appsetting.html',
 					icon: 'mui-icon-gear',
 					title: '设置'
 				}]

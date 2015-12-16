@@ -180,7 +180,7 @@ define(function (require, exports, module) {
 						val,
 						React.createElement(
 							'p',
-							{ 'class': 'mui-ellipsis' },
+							{ className: 'mui-ellipsis' },
 							note.createon
 						)
 					)

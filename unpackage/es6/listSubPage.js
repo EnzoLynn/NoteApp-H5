@@ -163,7 +163,7 @@ define(function(require, exports, module) {
 					<div className="mui-slider-handle" onClick={(e)=>this.editNote(e,note.id)}> 
 						<a className="mui-navigate-right" >
 							{val} 
-							<p class='mui-ellipsis'>{note.createon}</p> 
+							<p className='mui-ellipsis'>{note.createon}</p> 
 						</a>
 					</div>
 					
