@@ -101,24 +101,35 @@ define(function (require, exports, module) {
 			});
 		},
 		getInitialState: function getInitialState() {
+			var subpage_style = {
+				top: '0px',
+				bottom: '51px'
+			};
 			return {
 				subpages: [{
 					url: 'listSubPage.html',
 					icon: 'mui-icon-home',
-					title: '首页'
+					title: '首页',
+					styles: {
+						top: '48px',
+						bottom: '51px'
+					}
 				}, {
 					url: 'subpages/tab-webview-subpage-chat.html',
 					icon: 'mui-icon-email',
 					title: '消息',
-					tip: 9
+					tip: 9,
+					styles: subpage_style
 				}, {
 					url: 'subpages/tab-webview-subpage-contact.html',
 					icon: 'mui-icon-contact',
-					title: '通讯录'
+					title: '通讯录',
+					styles: subpage_style
 				}, {
 					url: 'subpages/appsetting.html',
 					icon: 'mui-icon-gear',
-					title: '设置'
+					title: '设置',
+					styles: subpage_style
 				}]
 			};
 		},

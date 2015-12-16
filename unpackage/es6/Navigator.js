@@ -2,17 +2,14 @@ define(function(require, exprots, module) {
 	var Navigator = React.createClass({
 		componentDidMount: function() {
 			var me = this;
-			var subpage_style = {
-				top: '48px',
-				bottom: '51px'
-			};
+			 
 			var self = plus.webview.currentWebview();
 			var aniShow = {};
 			this.props.subpages.forEach(function(element, index) {
 				var temp = {};
 				
 				if (index > 0) {
-					var sub = plus.webview.create(element.url, element.url, subpage_style);
+					var sub = plus.webview.create(element.url, element.url, element.styles);
 					sub.hide(); 
 					self.append(sub);
 				} else {

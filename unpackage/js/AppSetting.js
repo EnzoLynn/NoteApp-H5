@@ -16,11 +16,29 @@ define(function (require, exports, module) {
 				items: [{
 					isNode: true,
 					disName: '产品',
-					items: [{ disName: 'IOS', link: 'tab-webview-subpage-setting.html' }, { disName: 'IOS', link: '#' }, { disName: 'IOS', link: '#' }]
+					items: [{
+						disName: 'IOS1',
+						link: 'tab-webview-subpage-setting.html'
+					}, {
+						disName: 'IOS',
+						link: '#'
+					}, {
+						disName: 'IOS',
+						link: '#'
+					}]
 				}, {
 					isNode: true,
 					disName: '产品',
-					items: [{ disName: 'IOS', link: '#' }, { disName: 'IOS', link: '#' }, { disName: 'IOS', link: '#' }]
+					items: [{
+						disName: 'IOS',
+						link: '#'
+					}, {
+						disName: 'IOS',
+						link: '#'
+					}, {
+						disName: 'IOS',
+						link: '#'
+					}]
 				}, {
 					isNode: false,
 					disName: '产品',
@@ -29,13 +47,27 @@ define(function (require, exports, module) {
 				}]
 			};
 		},
-		componentDidMount: function componentDidMount() {},
+
 		render: function render() {
 
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(ListContainer, { items: this.state.items })
+				React.createElement(
+					'header',
+					{ className: 'mui-bar mui-bar-nav' },
+					React.createElement('a', { className: 'mui-icon mui-icon-left-nav mui-pull-left' }),
+					React.createElement(
+						'h1',
+						{ className: 'mui-title' },
+						'设置'
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'mui-content' },
+					React.createElement(ListContainer, { items: this.state.items })
+				)
 			);
 		}
 	});
