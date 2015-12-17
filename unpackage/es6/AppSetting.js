@@ -29,12 +29,12 @@ define(function(require, exports, module) {
 					}]
 				}, {
 					isNode: true,
-					disName: '产品',
+					disName: '安全',
 					items: [{
-						disName: 'IOS',
+						disName: '手势设置',
 						link: '#'
 					}, {
-						disName: 'IOS',
+						disName: '11',
 						link: '#'
 					}, {
 						disName: 'IOS',
@@ -42,9 +42,15 @@ define(function(require, exports, module) {
 					}]
 				}, {
 					isNode: false,
-					disName: '产品',
+					disName: '启用手势',
 					link: '#',
-					items: []
+					items: [],
+					switch: true
+				},{
+					isNode:false,
+					disName:'设置手势',
+					link: 'locker-dom.html',
+					hidden:true//.mui-hidden
 				}]
 			};
 		},

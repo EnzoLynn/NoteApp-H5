@@ -149,6 +149,7 @@ define(function(require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
+			deNote = deNote.replace(/<br\/>/g, '\n');
 			var val = deNote.length > 15 ? deNote.substring(0, 15) + '...' : deNote;
 
 			return (
@@ -171,9 +172,10 @@ define(function(require, exports, module) {
 			);
 		}
 	});
-	window.getNoteList = function(scope, searchVal) {
+	window.getNoteList = function(scope, sval) {
 
 		var me = scope;
+		var searchVal = sval?sval:(me.refs.searchInput?me.refs.searchInput.value:'');
 		//var keyNames = [];
 		//var values = [];
 		// var numKeys = plus.storage.getLength();
@@ -197,7 +199,7 @@ define(function(require, exports, module) {
 		// 
 		if (searchVal && searchVal != '') {
 			dbHelper.find(storeName, {
-				content: escape(searchVal)
+				content:searchVal//escape(searchVal)
 			}, true, function(mes) {
 				if (mes.success) {
 					var notes = mes.result;
