@@ -56,10 +56,9 @@ define(function(require, exports, module) {
 		addNote: function(callback) {
 			var me = this;
 			var val = me.refs.textarea.value; 
- 
-				    //alert(val.replace(/\n/g, '<br/>'));  
-			//val = escape(val);
-			val = val.replace(/\n/g, '<br/>');
+  
+			val = escape(val);
+			//val = val.replace(/\n/g, '<br/>');
 			var date = me.getDateTime();
 			if (window.noteid != '') { //编辑
 				var id = parseInt(window.noteid);  
@@ -144,7 +143,7 @@ define(function(require, exports, module) {
 	});
 	window.PushValue = function(id, val) {
 		var esval = unescape(val);
-		esval = esval.replace(/<br\/>/g, '\n');
+		//esval = esval.replace(/<br\/>/g, '\n');
 		window.noteid = id;
 		window.noteval = esval;
 		mui('#textarea')[0].value = esval;

@@ -146,7 +146,7 @@ define(function (require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
-			deNote = deNote.replace(/<br\/>/g, '\n');
+			//deNote = deNote.replace(/<br\/>/g, '\n');
 			var val = deNote.length > 15 ? deNote.substring(0, 15) + '...' : deNote;
 
 			return React.createElement(
