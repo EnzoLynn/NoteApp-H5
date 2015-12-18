@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-
+	var escaper = require('js/escaper.js');
 	var IndexDBHelper = require('js/IndexDBHelper.js');
 	var dbHelper, storeName = 'Notes',
 		databaseName = 'NoteApp';
@@ -57,8 +57,8 @@ define(function(require, exports, module) {
 			var me = this;
 			var val = me.refs.textarea.value; 
   
-			val = escape(val);
-			//val = val.replace(/\n/g, '<br/>');
+			//val = escape(val);
+			val = escaper.encodeSpc(val);
 			var date = me.getDateTime();
 			if (window.noteid != '') { //编辑
 				var id = parseInt(window.noteid);  
@@ -143,7 +143,7 @@ define(function(require, exports, module) {
 	});
 	window.PushValue = function(id, val) {
 		var esval = unescape(val);
-		//esval = esval.replace(/<br\/>/g, '\n');
+		esval =  escaper.decodeSpc(esval);
 		window.noteid = id;
 		window.noteval = esval;
 		mui('#textarea')[0].value = esval;

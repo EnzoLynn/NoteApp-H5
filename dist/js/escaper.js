@@ -1,0 +1,2 @@
+"use strict";define(function(require,exports,module){var es={encodeSpc:function(s){var rs="";return rs=s.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br/>").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;")},decodeSpc:function(s){var rs="";return rs=s.replace(/<br\/>/g,"\n").replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">")}};module.exports=es});
+//# sourceMappingURL=escaper.js.map

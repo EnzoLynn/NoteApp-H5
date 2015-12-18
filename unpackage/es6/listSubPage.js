@@ -1,4 +1,5 @@
 define(function(require, exports, module) {
+	var escaper = require('js/escaper.js');
 	var IndexDBHelper = require('js/IndexDBHelper.js');
 	var dbHelper, storeName = 'Notes',
 		databaseName = 'NoteApp';
@@ -149,7 +150,7 @@ define(function(require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
-			//deNote = deNote.replace(/<br\/>/g, '\n');
+			deNote =  escaper.decodeSpc(deNote);
 			var val = deNote.length > 15 ? deNote.substring(0, 15) + '...' : deNote;
 
 			return (
@@ -199,7 +200,7 @@ define(function(require, exports, module) {
 		// 
 		if (searchVal && searchVal != '') {
 			dbHelper.find(storeName, {
-				content:searchVal//escape(searchVal)
+				content:escaper.encodeSpc(searchVal)//escape(searchVal)
 			}, true, function(mes) {
 				if (mes.success) {
 					var notes = mes.result;
