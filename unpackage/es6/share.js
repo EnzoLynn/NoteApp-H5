@@ -1,4 +1,5 @@
 define(function(require, exports, module) {
+	var escaper = require('js/escaper.js');
 	var ShareHelper = require('js/ShareHelper.js');
 	var share = new ShareHelper();
 	var $ = require('jquery');
@@ -6,6 +7,7 @@ define(function(require, exports, module) {
 	share.Init();
 	window.ShareText = function(val) {
 		var esval = unescape(val);
+		esval = escaper.decodeSpc(esval);
 		mui('.sharecontent')[0].value = esval;
 	}
 	var ShareWin = React.createClass({
