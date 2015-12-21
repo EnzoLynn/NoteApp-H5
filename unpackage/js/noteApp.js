@@ -25,6 +25,13 @@ define(function (require, exports, module) {
 						top: '48px',
 						bottom: '51px'
 					}
+				}, {
+					url: 'subpages/appsetting-locker.html', //下拉刷新内容页面地址
+					id: 'locker-dom', //内容页面标志
+					styles: {
+						top: '0px',
+						bottom: '0px'
+					}
 				}],
 				preloadPages: [{
 					url: "addNoteWindow.html",

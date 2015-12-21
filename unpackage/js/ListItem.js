@@ -8,8 +8,8 @@ define(function (require, exports, module) {
 			setTimeout(function () {
 				mui('.mui-switch')['switch']();
 			}, 1);
-			console.log(mui('.toggleLocker')[0].classList);
-			console.log(mui('.toggleLocker')[0].classList.contains('mui-active'));
+			//console.log(mui('.toggleLocker')[0].classList);
+			//console.log(mui('.toggleLocker')[0].classList.contains('mui-active'));
 		},
 		render: function render() {
 			var isNode = this.props.item.isNode;

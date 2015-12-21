@@ -49,7 +49,7 @@ define(function(require, exports, module) {
 				},{
 					isNode:false,
 					disName:'设置手势',
-					link: 'locker-dom.html',
+					link: 'appsetting-locker.html?reset=true',
 					hidden:true//.mui-hidden
 				}]
 			};

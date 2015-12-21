@@ -8,6 +8,18 @@ body .mui-bar .completeNote {
 body .mui-bar .sharethis {
   font-size: 16px;
 }
+body .mui-content .holder {
+  width: 300px;
+  height: 300px;
+  border: solid 1px #bbb;
+  border-radius: 5px;
+  margin: auto auto;
+  background-color: #fff;
+}
+body .mui-content .alert {
+  text-align: center;
+  padding: 2px 10px;
+}
 body .mui-content .shareBtnTable {
   width: 100%;
 }

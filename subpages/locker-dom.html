@@ -66,6 +66,7 @@
 					if (record.length >= 2) {
 						if (record[0] == record[1]) {
 							alert.innerText = '手势设定完成';
+							plus.webview.close('locker-dom');
 						} else {
 							alert.innerText = '两次手势设定不一致';
 						}

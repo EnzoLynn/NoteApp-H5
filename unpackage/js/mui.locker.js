@@ -276,6 +276,7 @@
 	$.fn.locker = function (options) {
 		//遍历选择的元素
 		this.each(function (i, element) {
+
 			if (element.locker) return;
 			if (options) {
 				element.locker = new Locker(element, options);
