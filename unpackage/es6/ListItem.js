@@ -31,6 +31,8 @@ define(function(require, exports, module) {
 			if (this.props.item.switch) {
 				//mui-active
 				let switchClass = this.props.item.switchState?'mui-switch mui-active toggleLocker':'mui-switch  toggleLocker';
+				
+			//console.log(this.props.item.switchState);
 				return (
 					<div>
 						<li className={liClass}>{this.props.item.disName}
