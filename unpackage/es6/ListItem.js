@@ -1,9 +1,9 @@
 define(function(require, exports, module) {
 	var ListItem = React.createClass({
-
+		 
 		componentDidMount: function() {
 			setTimeout(function() {
-				mui('.mui-switch')['switch']();
+				mui('.mui-switch')['switch'](); 
 			}, 1);
 			//console.log(mui('.toggleLocker')[0].classList);
 			//console.log(mui('.toggleLocker')[0].classList.contains('mui-active'));
@@ -32,7 +32,7 @@ define(function(require, exports, module) {
 				return (
 					<div>
 						<li className={liClass}>{this.props.item.disName}
-							<div  className="mui-switch mui-active toggleLocker">
+							<div  className="mui-switch mui-active toggleLocker" onClick={this.props.item.handler}>
 								<div className="mui-switch-handle"></div>
 							</div> 
 							{childrens}

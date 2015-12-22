@@ -44,7 +44,13 @@ define(function (require, exports, module) {
 					disName: '启用手势',
 					link: '#',
 					items: [],
-					'switch': true
+					'switch': true,
+					handler: function handler() {
+
+						var state = mui('.toggleLocker')[0].classList.contains('mui-active') ? 'enable' : 'disable';
+
+						plus.storage.setItem('Locker', state);
+					}
 				}, {
 					isNode: false,
 					disName: '设置手势',

@@ -50,7 +50,7 @@ define(function (require, exports, module) {
 						this.props.item.disName,
 						React.createElement(
 							'div',
-							{ className: 'mui-switch mui-active toggleLocker' },
+							{ className: 'mui-switch mui-active toggleLocker', onClick: this.props.item.handler },
 							React.createElement('div', { className: 'mui-switch-handle' })
 						),
 						childrens

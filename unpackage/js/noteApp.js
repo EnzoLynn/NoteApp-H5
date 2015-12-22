@@ -3,6 +3,7 @@
 define(function (require, exports, module) {
 	var HeadToolBar = require('js/HeadToolBar.js');
 	var Navigator = require('js/Navigator.js');
+
 	var first;
 
 	mui.plusReady(function () {
@@ -14,25 +15,30 @@ define(function (require, exports, module) {
 
 		componentDidMount: function componentDidMount() {
 			var me = this;
-			mui.init({
-				keyEventBind: {
-					backbutton: false //关闭back按键监听
-				},
-				subpages: [{
-					url: 'listSubPage.html', //下拉刷新内容页面地址
-					id: 'listSubPage', //内容页面标志
-					styles: {
-						top: '48px',
-						bottom: '51px'
-					}
-				}, {
+			var hasLocker = plus.storage.getItem('Locker');
+			var subpages = [{
+				url: 'listSubPage.html', //下拉刷新内容页面地址
+				id: 'listSubPage', //内容页面标志
+				styles: {
+					top: '48px',
+					bottom: '51px'
+				}
+			}];
+			if (hasLocker && hasLocker == 'enable') {
+				subpages.push({
 					url: 'subpages/appsetting-locker.html', //下拉刷新内容页面地址
 					id: 'locker-dom', //内容页面标志
 					styles: {
 						top: '0px',
 						bottom: '0px'
 					}
-				}],
+				});
+			};
+			mui.init({
+				keyEventBind: {
+					backbutton: false //关闭back按键监听
+				},
+				subpages: subpages,
 				preloadPages: [{
 					url: "addNoteWindow.html",
 					id: "addNoteWindow",
