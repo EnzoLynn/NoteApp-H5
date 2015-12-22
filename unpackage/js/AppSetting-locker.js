@@ -13,6 +13,7 @@ define(function (require, exports, module) {
 			var holder = mui('.holder')[0],
 			    alert = mui('.alert')[0],
 			    record = [];
+			var reCount = 0;
 			holder.style.margin = marginTop + 'px auto 10px auto';
 			//处理事件
 			holder.addEventListener('done', function (event) {
@@ -55,21 +56,51 @@ define(function (require, exports, module) {
 							plus.webview.close('locker-dom');
 						}, 1000);
 					} else {
+						reCount++;
 						alert.innerText = '手势错误';
 						record = [];
 						rs.sender.clear();
+						if (reCount >= 4) {
+							console.log(reCount);
+							mui('.forgotPass')[0].classList.remove('mui-hidden');
+						};
 					}
 				}
 			});
 		},
 		render: function render() {
+			var _this = this;
+
 			return React.createElement(
 				'div',
 				{ className: 'mui-content' },
 				React.createElement('div', { className: 'mui-locker holder', 'data-locker-options': '{"ringColor":"rgba(210,210,210,1)","fillColor":"#ffffff","pointColor":"rgba(0,136,204,1)","lineColor":"rgba(0,136,204,1)"}',
 					'data-locker-width': '300', 'data-locker-height': '300' }),
-				React.createElement('div', { className: 'alert' })
+				React.createElement('div', { className: 'alert' }),
+				React.createElement(
+					'div',
+					{ className: 'forgotPassContainer' },
+					React.createElement(
+						'a',
+						{ className: 'mui-hidden forgotPass', onClick: function (e) {
+								return _this.forgotPass(e);
+							} },
+						'忘记密码?'
+					)
+				)
 			);
+		},
+		forgotPass: function forgotPass(e) {
+			e.preventDefault();
+			mui.prompt('请输入解锁码:', function (e) {
+				if (e.index == 0) {
+					if (e.value == '888') {
+						plus.webview.close('locker-dom');
+					} else {
+						alert('无效的解锁码');
+					}
+				}
+			});
 		}
 	});
 });

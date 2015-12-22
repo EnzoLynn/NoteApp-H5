@@ -8,6 +8,10 @@ body .mui-bar .completeNote {
 body .mui-bar .sharethis {
   font-size: 16px;
 }
+body .mui-content .forgotPassContainer {
+  text-align: center;
+  margin: 2px auto;
+}
 body .mui-content .holder {
   width: 300px;
   height: 300px;

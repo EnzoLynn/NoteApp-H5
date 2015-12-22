@@ -7,6 +7,7 @@ define(function (require, exports, module) {
 	var first;
 
 	mui.plusReady(function () {
+
 		ReactDOM.render(React.createElement(NoteApp, null), mui('.container')[0]);
 	});
 

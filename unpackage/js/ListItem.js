@@ -41,6 +41,8 @@ define(function (require, exports, module) {
 				));
 			};
 			if (this.props.item['switch']) {
+				//mui-active
+				var switchClass = this.props.item.switchState ? 'mui-switch mui-active toggleLocker' : 'mui-switch  toggleLocker';
 				return React.createElement(
 					'div',
 					null,
@@ -50,7 +52,7 @@ define(function (require, exports, module) {
 						this.props.item.disName,
 						React.createElement(
 							'div',
-							{ className: 'mui-switch mui-active toggleLocker', onClick: this.props.item.handler },
+							{ className: switchClass, onClick: this.props.item.handler },
 							React.createElement('div', { className: 'mui-switch-handle' })
 						),
 						childrens

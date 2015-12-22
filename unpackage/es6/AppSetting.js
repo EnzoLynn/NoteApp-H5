@@ -13,6 +13,10 @@ define(function(require, exports, module) {
 
 	var SettingContainer = React.createClass({
 		getInitialState: function() {
+			var hasLocker = plus.storage.getItem('Locker');
+
+			let switchState= false;
+			if (hasLocker && hasLocker =='enable') {switchState=true};
 			return {
 				items: [{
 					isNode: true,
@@ -46,11 +50,18 @@ define(function(require, exports, module) {
 					link: '#',
 					items: [],
 					switch: true,
+					switchState:switchState,
 					handler:function(){
 
-						var state = mui('.toggleLocker')[0].classList.contains('mui-active')? 'enable' : 'disable';
-
+						var state = mui('.toggleLocker')[0].classList.contains('mui-active')? 'enable' : 'disable';						
 						plus.storage.setItem('Locker',state);
+						if (state == 'enable') {							
+							var pass = plus.storage.getItem('LockerPass');  
+							if (pass == null) {
+								var curView = plus.webview.currentWebview();
+								curView.loadURL('appsetting-locker.html?reset=true');
+							};
+						};
 					}
 				},{
 					isNode:false,

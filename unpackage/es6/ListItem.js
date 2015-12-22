@@ -29,10 +29,12 @@ define(function(require, exports, module) {
 				childrens.push(<ul className="mui-table-view mui-table-view-chevron">{subItems}</ul>);
 			};
 			if (this.props.item.switch) {
+				//mui-active
+				let switchClass = this.props.item.switchState?'mui-switch mui-active toggleLocker':'mui-switch  toggleLocker';
 				return (
 					<div>
 						<li className={liClass}>{this.props.item.disName}
-							<div  className="mui-switch mui-active toggleLocker" onClick={this.props.item.handler}>
+							<div  className={switchClass} onClick={this.props.item.handler}>
 								<div className="mui-switch-handle"></div>
 							</div> 
 							{childrens}
