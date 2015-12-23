@@ -2,6 +2,11 @@
 
 define(function (require, exports, module) {
 	var escaper = require('js/escaper.js');
+	var limitDate = new Date(),
+	    limitStep = 2;
+	//limitDate.setMonth(limitDate.getMonth()-3);
+	limitDate = new Date(limitDate.setDate(limitDate.getDate() - limitStep));
+	limitDate.setHours(0, 0, 0, 0);
 	var IndexDBHelper = require('js/IndexDBHelper.js');
 	var dbHelper,
 	    storeName = 'Notes',
@@ -80,6 +85,12 @@ define(function (require, exports, module) {
 					});
 					//plus.webview.getWebviewById('addNoteWindow');
 					if (ws) {
+						//跨页面调用方法：
+						//1.evalJS 获取跨页面窗口调用function
+						//2.mui.fire //获得主页面的webview
+						//var main = plus.webview.currentWebview().parent();
+						//触发主页面的gohome事件
+						//mui.fire(main,'gohome');
 						ws.evalJS("PushValue('" + key + "','" + val + "')");
 					};
 				} else {
@@ -190,7 +201,8 @@ define(function (require, exports, module) {
 			);
 		}
 	});
-	window.getNoteList = function (scope, sval) {
+
+	window.getNoteList = function (scope, sval, callback) {
 
 		var me = scope;
 		var searchVal = sval ? sval : me.refs.searchInput ? me.refs.searchInput.value : '';
@@ -232,9 +244,18 @@ define(function (require, exports, module) {
 				} else {
 					alert(mes.msg);
 				}
+				if (callback) {
+					callback(mes);
+				};
 			});
 		} else {
-			dbHelper.find(storeName, false, false, function (mes) {
+			console.log(limitDate);
+			dbHelper.find(storeName, {
+				createon: {
+					type: 'date',
+					value: limitDate
+				}
+			}, false, function (mes) {
 				if (mes.success) {
 					var notes = mes.result;
 					notes.sort(function (a, b) {
@@ -248,10 +269,14 @@ define(function (require, exports, module) {
 				} else {
 					alert(mes.msg);
 				}
+				if (callback) {
+					callback(mes);
+				};
 			});
 		}
 	};
 
+	var loading = false;
 	// 下拉刷新容器
 	var ListSubPage = React.createClass({
 		displayName: 'ListSubPage',
@@ -274,19 +299,23 @@ define(function (require, exports, module) {
 		pullupRefresh: function pullupRefresh() {
 			var me = this;
 
-			dbHelper.find(storeName, false, false, function (mes) {
-				if (mes.success) {
-					var numKeys = mes.result.length;
+			if (!loading) {
+				loading = true;
+				limitDate = new Date(limitDate.setDate(limitDate.getDate() - limitStep));
 
-					var table = document.body.querySelector('.mui-table-view');
-					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				window.getNoteList(me, me.refs.searchInput.value, function (mes) {
+					if (mes.success) {
+						var numKeys = mes.result.length;
+						var table = document.body.querySelector('.mui-table-view');
+						var cells = document.body.querySelectorAll('.mui-table-view-cell');
 
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(cells.length >= numKeys); //参数为true代表没有更多数据了。
-					me.getList();
-				} else {
-					alert(mes.msg);
-				}
-			});
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(cells.length >= mes.total); //参数为true代表没有更多数据了。
+					}
+					loading = false;
+				});
+			} else {
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			}
 		},
 		getList: function getList() {
 			var me = this;

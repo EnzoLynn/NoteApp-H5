@@ -1,5 +1,10 @@
 define(function(require, exports, module) {
 	var escaper = require('js/escaper.js');
+	var limitDate = new Date(),
+		limitStep = 2;
+	//limitDate.setMonth(limitDate.getMonth()-3); 
+	limitDate = new Date(limitDate.setDate(limitDate.getDate() - limitStep));
+	limitDate.setHours(0, 0, 0, 0);
 	var IndexDBHelper = require('js/IndexDBHelper.js');
 	var dbHelper, storeName = 'Notes',
 		databaseName = 'NoteApp';
@@ -83,6 +88,12 @@ define(function(require, exports, module) {
 					});
 					//plus.webview.getWebviewById('addNoteWindow'); 
 					if (ws) {
+						//跨页面调用方法：
+						//1.evalJS 获取跨页面窗口调用function
+						//2.mui.fire //获得主页面的webview
+						//var main = plus.webview.currentWebview().parent();
+						//触发主页面的gohome事件
+						//mui.fire(main,'gohome');
 						ws.evalJS("PushValue('" + key + "','" + val + "')");
 					};
 				} else {
@@ -150,7 +161,7 @@ define(function(require, exports, module) {
 			};
 
 			var deNote = unescape(note.content);
-			deNote =  escaper.decodeSpc(deNote);
+			deNote = escaper.decodeSpc(deNote);
 			var val = deNote.length > 15 ? deNote.substring(0, 15) + '...' : deNote;
 
 			return (
@@ -173,10 +184,11 @@ define(function(require, exports, module) {
 			);
 		}
 	});
-	window.getNoteList = function(scope, sval) {
+
+	window.getNoteList = function(scope, sval, callback) {
 
 		var me = scope;
-		var searchVal = sval?sval:(me.refs.searchInput?me.refs.searchInput.value:'');
+		var searchVal = sval ? sval : (me.refs.searchInput ? me.refs.searchInput.value : '');
 		//var keyNames = [];
 		//var values = [];
 		// var numKeys = plus.storage.getLength();
@@ -200,7 +212,7 @@ define(function(require, exports, module) {
 		// 
 		if (searchVal && searchVal != '') {
 			dbHelper.find(storeName, {
-				content:escaper.encodeSpc(searchVal)//escape(searchVal)
+				content: escaper.encodeSpc(searchVal) //escape(searchVal)
 			}, true, function(mes) {
 				if (mes.success) {
 					var notes = mes.result;
@@ -215,9 +227,18 @@ define(function(require, exports, module) {
 				} else {
 					alert(mes.msg);
 				}
+				if (callback) {
+					callback(mes);
+				};
 			});
 		} else {
-			dbHelper.find(storeName, false, false, function(mes) {
+			console.log(limitDate);
+			dbHelper.find(storeName, {
+				createon: {
+					type: 'date',
+					value: limitDate
+				}
+			}, false, function(mes) {
 				if (mes.success) {
 					var notes = mes.result;
 					notes.sort(function(a, b) {
@@ -231,13 +252,16 @@ define(function(require, exports, module) {
 				} else {
 					alert(mes.msg);
 				}
+				if (callback) {
+					callback(mes);
+				};
 			});
 		}
 
 
 	};
 
-
+	let loading = false;
 	// 下拉刷新容器
 	var ListSubPage = React.createClass({
 		/**
@@ -258,20 +282,27 @@ define(function(require, exports, module) {
 		pullupRefresh: function() {
 			var me = this;
 
-			dbHelper.find(storeName, false, false, function(mes) {
-				if (mes.success) {
-					var numKeys = mes.result.length;
 
-					var table = document.body.querySelector('.mui-table-view');
-					var cells = document.body.querySelectorAll('.mui-table-view-cell');
+			if (!loading) {
+				loading = true;				 
+				limitDate = new Date(limitDate.setDate(limitDate.getDate() - limitStep)); 
 
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(cells.length >= numKeys); //参数为true代表没有更多数据了。
-					me.getList();
-				} else {
-					alert(mes.msg);
-				}
-			});
+				window.getNoteList(me, me.refs.searchInput.value, function(mes) {
+					if (mes.success) {
+						var numKeys = mes.result.length; 
+						var table = document.body.querySelector('.mui-table-view');
+						var cells = document.body.querySelectorAll('.mui-table-view-cell');
 
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(cells.length >= mes.total); //参数为true代表没有更多数据了。
+
+					}
+					loading = false;
+				});
+
+
+			} else {
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			}
 
 
 		},
@@ -280,8 +311,8 @@ define(function(require, exports, module) {
 			window.getNoteList(me, me.refs.searchInput.value);
 		},
 		searchList: function(e) {
-			var me = this;  
-			if (e.keyCode == 13) {  
+			var me = this;
+			if (e.keyCode == 13) {
 				window.getNoteList(me, me.refs.searchInput.value);
 				me.refs.searchInput.blur();
 			};
