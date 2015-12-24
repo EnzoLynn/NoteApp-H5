@@ -1,10 +1,10 @@
 define(function(require, exports, module) {
 	var merge = require('js/lib/merge.js');
 	let message = function({
-		success, msg, result,total
+		success, msg, result, total
 	}) {
 		return {
-			success, msg, result,total
+			success, msg, result, total
 		};
 	};
 	var dbHelper = function() {
@@ -196,81 +196,87 @@ define(function(require, exports, module) {
 			let me = this;
 			let transaction = me.localDatabase.db.transaction(storeName, "readwrite");
 			let store = transaction.objectStore(storeName);
-			let total = 0;
-
+		 
 			if (me.localDatabase != null && me.localDatabase.db != null) {
 				var store = me.localDatabase.db.transaction(storeName).objectStore(storeName);
-				
+
 				var request = store.openCursor();
-				var result = [];
+				var result = [],
+					res = [];
 				request.onsuccess = function(e) {
 					var cursor = e.target.result;
+					
 					if (cursor) {
-
-						var data = cursor.value;
-						total++;
+						var data = cursor.value; 
+						result.push(data); 
+						cursor.continue();
+					} else {
 						// var jsonStr = JSON.stringify(employee);
+						//var indexes = [];
 						if (whereObj) {
-							for (let key in whereObj) {
-								var value = data[key];
-								//判断whereObj[key]是否默认类型
-								if (typeof whereObj[key] == 'object') {
-									var obj = whereObj[key];
-									if (obj.type == 'date') {
-										var val1 = new Date(obj.value);
-										var val2 = new Date(value); 
-										if (val2 >= val1) {
-											result.push(data);
+							for (var i = 0; i < result.length; i++) {
+								for (let key in whereObj) {
+
+									let value = result[i][key];
+									//判断whereObj[key]是否默认类型
+									if (typeof whereObj[key] == 'object') {
+										var obj = whereObj[key];
+										if (obj.type == 'date') {
+											var val1 = new Date(obj.value);
+											var val2 = new Date(value);
+
+											if (!(val2 >= val1)) {
+												delete result[i];
+												break;
+											}
+										} else { //默认string 
+											//是否模糊查询
+											if (isFuzzy) {
+												if (value.indexOf(whereObj[key]) == -1) {
+													delete result[i];
+													break;
+												};
+											} else {
+												if (whereObj[key] != value) {
+													delete result[i];
+													break;
+												};
+											}
 										}
-									} else { //默认string
+
+									} else {
 										//是否模糊查询
 										if (isFuzzy) {
-											if (value.indexOf(whereObj[key].value) != -1) {
-												result.push(data);
+											if (value.indexOf(whereObj[key]) == -1) {
+												delete result[i];
+												break;
 											};
 										} else {
-											if (whereObj[key].value == value) {
-												result.push(data);
+											if (whereObj[key] != value) {
+												delete result[i];
+												break;
 											};
 										}
 									}
 
-								} else {
-									//是否模糊查询
-									if (isFuzzy) {
-										if (value.indexOf(whereObj[key]) != -1) {
-											result.push(data);
-										};
-									} else {
-										if (whereObj[key] == value) {
-											result.push(data);
-										};
-									}
 								}
+							};
 
-							}
-						} else {
-							result.push(data);
 						}
-						if (topNum) {
-							if (result.length == topNum) {
-								if (callback) {
-									callback(new message({
-										success: true,
-										total:total,
-										msg: 'find success',
-										result: result
-									}));
-								};
-								return;
+						for (let i = 0; i < result.length; i++) {
+							if (result[i]) {
+								res.push(result[i]);
 							};
 						};
-						cursor.continue();
-					} else { 
-						if (callback) {
+						if (topNum) {
+							if (res.length > topNum) {
+								res.splice(topNum - 1, res.length - topNum);
+							};
+						};
+						if (callback) {  
 							callback(new message({
 								success: true,
-								total:total,
+								total: result.length,
 								msg: 'find success',
 								result: result
 							}));

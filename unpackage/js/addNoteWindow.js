@@ -100,6 +100,7 @@ define(function (require, exports, module) {
 						window.noteid = '';
 						window.noteval = '';
 						var ws = plus.webview.getWebviewById("listSubPage");
+
 						if (ws) {
 							ws.evalJS("refreshList()");
 						};

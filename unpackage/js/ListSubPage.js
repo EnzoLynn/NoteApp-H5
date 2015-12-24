@@ -3,9 +3,9 @@
 define(function (require, exports, module) {
 	var escaper = require('js/escaper.js');
 	var limitDate = new Date(),
-	    limitStep = 2;
-	//limitDate.setMonth(limitDate.getMonth()-3);
-	limitDate = new Date(limitDate.setDate(limitDate.getDate() - limitStep));
+	    limitStep = 3;
+	limitDate = new Date(limitDate.setMonth(limitDate.getMonth() - limitStep));
+	//limitDate = new Date(limitDate.setDate(limitDate.getDate() - limitStep));
 	limitDate.setHours(0, 0, 0, 0);
 	var IndexDBHelper = require('js/IndexDBHelper.js');
 	var dbHelper,
@@ -229,8 +229,12 @@ define(function (require, exports, module) {
 		//
 		if (searchVal && searchVal != '') {
 			dbHelper.find(storeName, {
-				content: escaper.encodeSpc(searchVal) //escape(searchVal)
-			}, true, function (mes) {
+				content: escaper.encodeSpc(searchVal) }, //escape(searchVal)
+			// createon: {
+			// 	type: 'date',
+			// 	value: limitDate
+			// }
+			true, function (mes) {
 				if (mes.success) {
 					var notes = mes.result;
 					notes.sort(function (a, b) {
@@ -249,7 +253,6 @@ define(function (require, exports, module) {
 				};
 			});
 		} else {
-			console.log(limitDate);
 			dbHelper.find(storeName, {
 				createon: {
 					type: 'date',

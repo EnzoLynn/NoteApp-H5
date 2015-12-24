@@ -44,8 +44,8 @@ define(function(require, exports, module) {
 			let seconds = now.getSeconds();
 			//"" + year + "年" +
 			let str = month + "月" + day + "日 " + me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2) + "";
-			let week = me.getWeek(); 
-			return year + '/' + month + '/' + day+' '+me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2) ;
+			let week = me.getWeek();
+			return year + '/' + month + '/' + day + ' ' + me.preZeroFill(hours, 2) + ":" + me.preZeroFill(minutes, 2) + ":" + me.preZeroFill(seconds, 2);
 			// let arr = [];
 			// arr.push(me.preZeroFill(hours, 2));
 			// arr.push(me.preZeroFill(minutes, 2));
@@ -55,18 +55,18 @@ define(function(require, exports, module) {
 		},
 		addNote: function(callback) {
 			var me = this;
-			var val = me.refs.textarea.value; 
-  
+			var val = me.refs.textarea.value;
+
 			//val = escape(val);
 			val = escaper.encodeSpc(val);
 			var date = me.getDateTime();
 			if (window.noteid != '') { //编辑
-				var id = parseInt(window.noteid);  
+				var id = parseInt(window.noteid);
 				//plus.storage.setItem(window.noteid + '', val); 
 				dbHelper.updateById(storeName, id, {
 					content: val,
-					createon: date 
-				}, function(dmes) { 
+					createon: date
+				}, function(dmes) {
 					if (dmes.success) {
 						window.noteid = '';
 						window.noteval = '';
@@ -94,6 +94,7 @@ define(function(require, exports, module) {
 						window.noteid = '';
 						window.noteval = '';
 						var ws = plus.webview.getWebviewById("listSubPage");
+
 						if (ws) {
 							ws.evalJS("refreshList()");
 						};
@@ -115,7 +116,7 @@ define(function(require, exports, module) {
 			var mask = mui.createMask(); //callback为用户点击蒙版时自动执行的回调；
 			mask.show(); //显示遮罩
 			me.addNote(function() {
-				
+
 				mui.back();
 				mask.close(); //关闭遮罩
 			});
@@ -143,7 +144,7 @@ define(function(require, exports, module) {
 	});
 	window.PushValue = function(id, val) {
 		var esval = unescape(val);
-		esval =  escaper.decodeSpc(esval);
+		esval = escaper.decodeSpc(esval);
 		window.noteid = id;
 		window.noteval = esval;
 		mui('#textarea')[0].value = esval;
