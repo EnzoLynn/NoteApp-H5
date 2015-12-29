@@ -1,5 +1,5 @@
 {
-	"unpackage":["dist/minjs"],
+	"unpackage":["dist/minjs","subpages/locker-dom.html"],
 	"@platforms": ["android", "iPhone", "iPad"],
 	"id": "H522F8B6B",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "NoteApp-H5",/*应用名称，程序桌面图标名称*/
