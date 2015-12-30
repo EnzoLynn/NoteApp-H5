@@ -135,7 +135,7 @@ define(function (require, exports, module) {
 					tip: 9,
 					styles: subpage_style
 				}, {
-					url: 'subpages/tab-webview-subpage-contact.html',
+					url: 'subpages/Contact.html',
 					icon: 'mui-icon-contact',
 					title: '通讯录',
 					styles: subpage_style
