@@ -31,6 +31,7 @@ define(function (require, exports, moudle) {
 		displayName: 'ViewList',
 
 		componentDidMount: function componentDidMount() {
+			console.log(getSpell.makePy("重新试试"));
 			// 扩展API加载完毕，现在可以正常调用扩展API
 			plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function (addressbook) {
 				// 可通过addressbook进行通讯录操作 W
