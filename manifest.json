@@ -256,7 +256,8 @@
 					"dist/js/share.js",
 					"dist/css/mui.css",
 					"dist/js/lib/seajs-css.js",
-					"dist/fonts/mui.ttf"
+					"dist/fonts/mui.ttf",
+					"dist/js/escaper.js"
 				],
 				"refer": [],
 				"priority": 0

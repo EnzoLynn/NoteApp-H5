@@ -142,6 +142,7 @@
 						selectorBuffer.push(classSelector('indexed-list-inner li') + ':nth-child(' + (currentIndex + 1) + ')');
 						itemCount++;
 					}
+
 					if (currentIndex >= itemTotal - 1) {
 						checkGroup(currentIndex, true);
 					}

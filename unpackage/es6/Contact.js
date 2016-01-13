@@ -86,8 +86,12 @@ define(function(require, exports, moudle) {
 
 						console.log(JSON.stringify(contact));
 					});
-					me.forceUpdate();
-
+					me.forceUpdate(function(){
+						console.log('done');
+						 //需要重建索引
+						window.indexedList.findElements();
+					});
+					
 				}, function() {
 					console.log("error");
 				}, {
@@ -125,11 +129,12 @@ define(function(require, exports, moudle) {
 							<input type="checkbox" />{li.text}</li>);
 					});
 
-				} else {
+				}
+				else{
 					liList.push(<li data-value='' data-tags=''
 							className="mui-table-view-cell mui-indexed-list-item mui-checkbox mui-left">
 							<input type="checkbox" />无</li>);
-				}
+				} 
 			});
 
 			return (
@@ -149,7 +154,7 @@ define(function(require, exports, moudle) {
 			var done = document.getElementById('done');
 			//calc hieght
 
-			list.style.height = (plus.screen.resolutionHeight - header.offsetHeight - 48 - 51 + 10) + 'px';
+			list.style.height = (plus.screen.resolutionHeight - header.offsetHeight - 48 - 51 + 20) + 'px';
 			//create
 			window.indexedList = new mui.IndexedList(list);
 			//done event
@@ -158,7 +163,7 @@ define(function(require, exports, moudle) {
 				var checkedValues = [];
 				checkboxArray.forEach(function(box) {
 					if (box.checked) {
-						checkedValues.push(box.parentNode.innerText);
+						checkedValues.push(box.parentNode.innerText+'-'+box.parentNode.getAttribute('data-value'));
 					}
 				});
 				if (checkedValues.length > 0) {

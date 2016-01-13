@@ -118,7 +118,7 @@
 			var groupIndex = -1;
 			var itemCount = 0;
 			var liArray = self.el.liArray;
-			var itemTotal = liArray.length;
+			var itemTotal = liArray.length; 
 			self.hiddenGroups = [];
 			var checkGroup = function(currentIndex, last) {
 				if (itemCount >= currentIndex - groupIndex - (last ? 0 : 1)) {
@@ -128,11 +128,11 @@
 				groupIndex = currentIndex;
 				itemCount = 0;
 			}
-			liArray.forEach(function(item) {
+			liArray.forEach(function(item) { 
 				var currentIndex = liArray.indexOf(item);
 				if (item.classList.contains($.className('indexed-list-group'))) {
 					checkGroup(currentIndex, false);
-				} else {
+				} else { 
 					var text = (item.innerText || '').toLowerCase();
 					var value = (item.getAttribute('data-value') || '').toLowerCase();
 					var tags = (item.getAttribute('data-tags') || '').toLowerCase();
@@ -142,6 +142,7 @@
 						selectorBuffer.push(classSelector('indexed-list-inner li') + ':nth-child(' + (currentIndex + 1) + ')');
 						itemCount++;
 					}
+
 					if (currentIndex >= itemTotal - 1) {
 						checkGroup(currentIndex, true);
 					}
