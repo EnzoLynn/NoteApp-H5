@@ -19,12 +19,25 @@ define(function(require, exports, moudle) {
 	});
 	var ViewList = React.createClass({
 		componentDidMount: function() {
-			console.log(getSpell.makePy("重新试试"));
+			var str = getSpell.makePy("重新试试");
+			console.log(str);
+			console.log(str.substring(0, 1));
 			// 扩展API加载完毕，现在可以正常调用扩展API
 			plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function(addressbook) {
 				// 可通过addressbook进行通讯录操作 W
 				addressbook.find(null, function(contacts) {
 					contacts.forEach(function(contact) {
+						var str = getSpell.makePy(contact.displayName);
+						var key = str.substring(0, 1);
+						if (typeof this.state[key] == 'undefined') {
+							this.state[key] = [];
+						}
+						this.state[key].push({
+							value: str,
+							tags: str,
+							text: contact.displayName
+						});
+
 						console.log(JSON.stringify(contact));
 					});
 
