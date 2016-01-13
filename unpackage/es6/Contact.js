@@ -19,41 +19,43 @@ define(function(require, exports, moudle) {
 	});
 	var ViewList = React.createClass({
 		translateNumber: function(key) {
+			var temp = '';
 			switch (key) {
 				case '1':
-					return 'Y';
+					temp = 'Y';
 					break;
 				case '2':
-					return 'E';
+					temp = 'E';
 					break;
 				case '3':
-					return 'S';
+					temp = 'S';
 					break;
 				case '4':
-					return 'S';
+					temp = 'S';
 					break;
 				case '5':
-					return 'W';
+					temp = 'W';
 					break;
 				case '6':
-					return 'L';
+					temp = 'L';
 					break;
 				case '7':
-					return 'Q';
+					temp = 'Q';
 					break;
 				case '8':
-					return 'B';
+					temp = 'B';
 					break;
 				case '9':
-					return 'J';
+					temp = 'J';
 					break;
 				case '0':
-					return 'L';
+					temp = 'L';
 					break;
 				default:
-					return 'Z';
+					temp = 'Z';
 					break;
 			}
+			return temp;
 
 		},
 		componentDidMount: function() {
