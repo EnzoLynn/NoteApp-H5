@@ -30,6 +30,43 @@ define(function (require, exports, moudle) {
 	var ViewList = React.createClass({
 		displayName: 'ViewList',
 
+		translateNumber: function translateNumber(key) {
+			switch (key) {
+				case '1':
+					return 'Y';
+					break;
+				case '2':
+					return 'E';
+					break;
+				case '3':
+					return 'S';
+					break;
+				case '4':
+					return 'S';
+					break;
+				case '5':
+					return 'W';
+					break;
+				case '6':
+					return 'L';
+					break;
+				case '7':
+					return 'Q';
+					break;
+				case '8':
+					return 'B';
+					break;
+				case '9':
+					return 'J';
+					break;
+				case '0':
+					return 'L';
+					break;
+				default:
+					return 'Z';
+					break;
+			}
+		},
 		componentDidMount: function componentDidMount() {
 			var me = this;
 			// 扩展API加载完毕，现在可以正常调用扩展API
@@ -40,7 +77,12 @@ define(function (require, exports, moudle) {
 						var strArr = getSpell.makePy(contact.displayName);
 						var val = strArr[0].toUpperCase();
 						var key = val.substring(0, 1).toUpperCase();
-						console.log(key);
+						//判断是否数字
+						//是则重新判断
+						var regex = /^\d+$/;
+						if (regex.test(key)) {
+							key = me.translateNumber(key);
+						};
 						if (typeof me.state[key] == 'undefined') {
 							me.state[key] = [];
 						}
