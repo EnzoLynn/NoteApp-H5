@@ -31,27 +31,29 @@ define(function (require, exports, moudle) {
 		displayName: 'ViewList',
 
 		componentDidMount: function componentDidMount() {
-			var str = getSpell.makePy("重新试试");
-			console.log(str);
-			console.log(str.substring(0, 1));
+			var me = this;
 			// 扩展API加载完毕，现在可以正常调用扩展API
 			plus.contacts.getAddressBook(plus.contacts.ADDRESSBOOK_PHONE, function (addressbook) {
 				// 可通过addressbook进行通讯录操作 W
 				addressbook.find(null, function (contacts) {
 					contacts.forEach(function (contact) {
-						var str = getSpell.makePy(contact.displayName);
-						var key = str.substring(0, 1);
-						if (typeof this.state[key] == 'undefined') {
-							this.state[key] = [];
+						var strArr = getSpell.makePy(contact.displayName);
+						var val = strArr[0].toUpperCase();
+						var key = val.substring(0, 1).toUpperCase();
+						console.log(key);
+						if (typeof me.state[key] == 'undefined') {
+							me.state[key] = [];
 						}
-						this.state[key].push({
-							value: str,
-							tags: str,
+
+						me.state[key].push({
+							value: val,
+							tags: val,
 							text: contact.displayName
 						});
 
 						console.log(JSON.stringify(contact));
 					});
+					me.forceUpdate();
 				}, function () {
 					console.log("error");
 				}, {
@@ -127,7 +129,7 @@ define(function (require, exports, moudle) {
 			var done = document.getElementById('done');
 			//calc hieght
 
-			list.style.height = plus.screen.resolutionHeight - header.offsetHeight - 48 - 51 + 'px';
+			list.style.height = plus.screen.resolutionHeight - header.offsetHeight - 48 - 51 + 10 + 'px';
 			//create
 			window.indexedList = new mui.IndexedList(list);
 			//done event

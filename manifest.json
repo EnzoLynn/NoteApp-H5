@@ -211,114 +211,6 @@
 				}
 			},"debug":false
 		}
-	},
-	"dependencies": {
-		"pages": {
-			"index.html": {
-				"resources": [
-					"dist/js/lib/mui.js",
-					"dist/css/noteapp.css",
-					"dist/js/seaConfig.js",
-					"dist/js/lib/react.js",
-					"dist/js/lib/sea.js",
-					"dist/js/HeadToolBar.js",
-					"listSubPage.html",
-					"dist/js/lib/react-dom.js",
-					"dist/js/lib/seajs-text.js",
-					"dist/js/noteApp.js",
-					"dist/css/mui.css",
-					"dist/fonts/mui.ttf",
-					"dist/js/lib/seajs-css.js",
-					"database.html"
-				],
-				"refer": [
-					"Share.html",
-					"addNoteWindow.html"
-				],
-				"priority": 0
-			},
-			"Share.html": {
-				"resources": [
-					"dist/js/lib/mui.js",
-					"dist/css/noteapp.css",
-					"dist/js/lib/jquery.js",
-					"dist/js/seaConfig.js",
-					"dist/js/lib/react.js",
-					"dist/js/lib/merge.js",
-					"dist/js/lib/sea.js",
-					"dist/js/ShareHelper.js",
-					"dist/js/lib/react-dom.js",
-					"dist/js/lib/seajs-text.js",
-					"dist/js/share.js",
-					"dist/css/mui.css",
-					"dist/js/lib/seajs-css.js",
-					"dist/fonts/mui.ttf"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"addNoteWindow.html": {
-				"resources": [
-					"dist/js/lib/sea.js",
-					"dist/js/lib/mui.js",
-					"dist/js/lib/react-dom.js",
-					"dist/js/addNoteWindow.js",
-					"dist/css/noteapp.css",
-					"dist/js/lib/seajs-text.js",
-					"dist/js/seaConfig.js",
-					"dist/js/lib/react.js",
-					"dist/css/mui.css",
-					"dist/fonts/mui.ttf",
-					"dist/js/lib/seajs-css.js"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"listSubPage.html": {
-				"resources": [
-					"dist/js/lib/sea.js",
-					"dist/js/lib/mui.js",
-					"dist/js/lib/react-dom.js",
-					"dist/js/lib/seajs-text.js",
-					"dist/css/noteapp.css",
-					"dist/js/seaConfig.js",
-					"dist/js/lib/react.js",
-					"dist/css/mui.css",
-					"dist/fonts/mui.ttf",
-					"dist/js/lib/seajs-css.js",
-					"dist/js/lib/jquery.js",
-					"dist/js/ListSubPage.js"
-				],
-				"refer": [],
-				"priority": 0
-			}
-		},
-		"idle": {
-			"resources": [
-				"dist/js/addNoteWindow.js.map",
-				"dist/js/HeadToolBar.js.map",
-				"dist/js/guid.js",
-				"dist/js/lib/seajs-css.js.map",
-				"dist/css/noteapp.css.map",
-				"dist/js/share.js.map",
-				"dist/js/ListSubPage.js.map",
-				"dist/js/lib/mui.zip",
-				"info.html",
-				"dist/js/head.js",
-				"dist/js/guid.js.map",
-				"dist/js/ShareHelper.js.map",
-				"dist/image/4-108.png",
-				"dist/js/lib/seajs-text.js.map",
-				"dist/js/head.js.map",
-				"dist/js/noteApp.js.map",
-				"dist/js/Global.js.map",
-				"dist/minjs/NoteApp.js",
-				"dist/js/lib/sea.js.map",
-				"dist/css/mui.css.map",
-				"dist/js/seaConfig.js.map",
-				"dist/js/Global.js"
-			]
-		}
 	},"fullscreen":false,
 	"dependencies": {
 		"pages": {
@@ -337,11 +229,15 @@
 					"dist/css/mui.css",
 					"dist/fonts/mui.ttf",
 					"dist/js/lib/seajs-css.js",
-					"database.html"
+					"database.html",
+					"subpages/tab-webview-subpage-chat.html",
+					"dist/js/Navigator.js"
 				],
 				"refer": [
 					"Share.html",
-					"addNoteWindow.html"
+					"addNoteWindow.html",
+					"subpages/Contact.html",
+					"subpages/appsetting.html"
 				],
 				"priority": 0
 			},
@@ -377,7 +273,10 @@
 					"dist/js/lib/react.js",
 					"dist/css/mui.css",
 					"dist/fonts/mui.ttf",
-					"dist/js/lib/seajs-css.js"
+					"dist/js/lib/seajs-css.js",
+					"dist/js/lib/merge.js",
+					"dist/js/escaper.js",
+					"dist/js/IndexDBHelper.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -395,7 +294,37 @@
 					"dist/fonts/mui.ttf",
 					"dist/js/lib/seajs-css.js",
 					"dist/js/lib/jquery.js",
-					"dist/js/ListSubPage.js"
+					"dist/js/ListSubPage.js",
+					"dist/js/escaper.js",
+					"dist/js/IndexDBHelper.js",
+					"dist/js/lib/merge.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"subpages/Contact.html": {
+				"resources": [
+					"dist/js/mui.indexedlist.js",
+					"dist/css/mui.indexedlist.css",
+					"dist/js/ChineseFirstSpell.js",
+					"dist/js/lib/sea.js",
+					"dist/js/lib/mui.js",
+					"dist/js/lib/react-dom.js",
+					"dist/js/lib/seajs-text.js",
+					"dist/js/seaConfig.js",
+					"dist/js/lib/react.js",
+					"dist/css/mui.css",
+					"dist/fonts/mui.ttf",
+					"dist/js/lib/seajs-css.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"subpages/appsetting.html": {
+				"resources": [
+					"dist/js/AppSetting.js",
+					"dist/js/ListContainer.js",
+					"dist/js/ListItem.js"
 				],
 				"refer": [],
 				"priority": 0
