@@ -82,12 +82,9 @@ define(function(require, exports, moudle) {
 							value: val,
 							tags: val,
 							text: contact.displayName
-						});
-
-						console.log(JSON.stringify(contact));
+						}); 
 					});
-					me.forceUpdate(function(){
-						console.log('done');
+					me.forceUpdate(function(){ 
 						 //需要重建索引
 						window.indexedList.findElements();
 					});

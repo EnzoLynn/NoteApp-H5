@@ -94,11 +94,8 @@ define(function (require, exports, moudle) {
 							tags: val,
 							text: contact.displayName
 						});
-
-						console.log(JSON.stringify(contact));
 					});
 					me.forceUpdate(function () {
-						console.log('done');
 						//需要重建索引
 						window.indexedList.findElements();
 					});
