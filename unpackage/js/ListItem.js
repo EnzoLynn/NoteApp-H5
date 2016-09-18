@@ -61,6 +61,21 @@ define(function (require, exports, module) {
 					)
 				);
 			}
+			if (this.props.item.handler) {
+				return React.createElement(
+					'div',
+					null,
+					React.createElement(
+						'li',
+						{ className: liClass },
+						React.createElement(
+							'a',
+							{ className: '', href: '##', onClick: this.props.item.handler },
+							this.props.item.disName
+						)
+					)
+				);
+			};
 			return React.createElement(
 				'div',
 				null,

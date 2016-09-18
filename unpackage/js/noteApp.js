@@ -132,7 +132,7 @@ define(function (require, exports, module) {
 					url: 'subpages/tab-webview-subpage-chat.html',
 					icon: 'mui-icon-email',
 					title: '消息',
-					tip: 9,
+					//tip: 9,
 					styles: subpage_style
 				}, {
 					url: 'subpages/Contact.html',

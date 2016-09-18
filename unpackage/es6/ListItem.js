@@ -44,6 +44,15 @@ define(function(require, exports, module) {
 					</div>
 				);
 			}
+			if (this.props.item.handler) {
+				return (
+					<div>
+						<li className={liClass}>
+							<a className="" href='##' onClick={this.props.item.handler}>{this.props.item.disName}</a> 
+						</li>
+					</div>
+				);
+			};
 			return (
 				<div>
 					<li className={liClass}>
